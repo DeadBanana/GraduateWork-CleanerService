@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import com.example.cleaberservice.activity.RegistrationActivity
+import com.example.cleaberservice.activity.UserActivity
 import com.example.cleaberservice.models.DB
 import com.google.android.gms.tasks.OnCompleteListener
 
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         val currentUser = DB.auth.currentUser
         if (currentUser != null) {
             Log.d("MyLog", "Current User is ${DB.users[currentUser.uid]?.name}<LoginActivity>")
+            NavigateByRole(0)
         }
         else
             Log.d("MyLog", "Current User is null<LoginActivity>")
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                 {
                     Toast.makeText(this, "User Auth Successful", Toast.LENGTH_SHORT).show()
                     Log.d("MyLog", "User(${email}, ${password}) Auth Successful<LoginActivity>")
+                    NavigateByRole(0)
                 }
                 else
                 {
@@ -61,5 +64,14 @@ class MainActivity : AppCompatActivity() {
     fun BRegistrationClick(view: View) {
         val intent = Intent(this, RegistrationActivity::class.java)
         startActivity(intent)
+    }
+
+    fun NavigateByRole(role: Int) {
+        when(role) {
+            else -> {
+                val intent = Intent(this, UserActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 }

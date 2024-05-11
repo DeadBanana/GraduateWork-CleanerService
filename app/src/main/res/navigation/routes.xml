@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/routes"
+    app:startDestination="@id/userMainFragment">
+    <fragment
+        android:id="@+id/userMainFragment"
+        android:name="com.example.cleaberservice.fragments.UserMainFragment"
+        android:label="Главное меню"
+        tools:layout="@layout/fragment_user_main" >
+        <action
+            android:id="@+id/action_userMainFragment_to_userTestFragment"
+            app:destination="@id/userTestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userTestFragment"
+        android:name="com.example.cleaberservice.fragments.UserTestFragment"
+        android:label="Тест"
+        tools:layout="@layout/fragment_user_test">
+        <argument
+            android:name="uId"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_userTestFragment_to_userMainFragment"
+            app:destination="@id/userMainFragment" />
+    </fragment>
+</navigation>
