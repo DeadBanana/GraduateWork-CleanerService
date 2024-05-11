@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "944554984913",
+    "firebase_url": "https://cleanerservice-be312-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "cleanerservice-be312",
+    "storage_bucket": "cleanerservice-be312.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944554984913:android:cd088a45f929aa6d210cf0",
+        "android_client_info": {
+          "package_name": "com.example.cleaberservice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM9ThcUlv_Uqf9X_VX0TLz4hsmZ2ZGSpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944554984913:android:53bc94ee533acbc9210cf0",
+        "android_client_info": {
+          "package_name": "com.example.testapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM9ThcUlv_Uqf9X_VX0TLz4hsmZ2ZGSpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

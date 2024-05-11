@@ -6,13 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <EditText
+            android:id="@+id/LoginActivityEDEmail"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:layout_margin="5dp"
+            android:textSize="21sp"
+            android:inputType="textEmailAddress"/>
+        <EditText
+            android:id="@+id/LoginActivityEDPassword"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:layout_margin="5dp"
+            android:textSize="21sp"
+            android:inputType="textPassword"/>
+        <Button
+            android:id="@+id/LoginActivityBLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:layout_margin="5dp"
+            android:textSize="21sp"
+            android:onClick="BLoginClick"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
