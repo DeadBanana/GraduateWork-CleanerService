@@ -1,11 +1,13 @@
 package com.example.cleaberservice
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import com.example.cleaberservice.activity.RegistrationActivity
 import com.example.cleaberservice.models.DB
 import com.google.android.gms.tasks.OnCompleteListener
 
@@ -54,5 +56,10 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Please enter Email and Password", Toast.LENGTH_SHORT).show()
             return
         }
+    }
+
+    fun BRegistrationClick(view: View) {
+        val intent = Intent(this, RegistrationActivity::class.java)
+        startActivity(intent)
     }
 }

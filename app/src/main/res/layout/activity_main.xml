@@ -38,6 +38,14 @@
             android:layout_margin="5dp"
             android:textSize="21sp"
             android:onClick="BLoginClick"/>
+        <Button
+            android:id="@+id/LoginActivityBRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:layout_margin="5dp"
+            android:textSize="21sp"
+            android:onClick="BRegistrationClick"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
