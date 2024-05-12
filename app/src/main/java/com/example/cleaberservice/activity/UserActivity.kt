@@ -51,6 +51,11 @@ class UserActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+                R.id.historyListFragment -> {
+                    navController.navigate(R.id.historyListFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
                 else -> false
             }
         }

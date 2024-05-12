@@ -6,4 +6,7 @@
     <item
         android:id="@+id/userTestFragment"
         android:title="Тест"/>
+    <item
+        android:id="@+id/historyListFragment"
+        android:title="История заказов"/>
 </menu>

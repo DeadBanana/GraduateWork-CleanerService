@@ -70,7 +70,7 @@ class RegistrationActivity : AppCompatActivity() {
             OnCompleteListener { task ->
                 if(task.isSuccessful) {
                     val uId = DB.auth.currentUser?.uid
-                    val user = User(uId!!, name, email)
+                    val user = User(uId!!, name, email, 0)
                     DB.users[uId] = user
                     DB.updateFirebase(DB.database.getReference(User.PATH.ROOT), DB.users)
                     pbProgress.visibility = View.GONE

@@ -51,18 +51,18 @@ object DB {
     }
 
     fun addOrder(order: Order) {
-        val orderMap = mapOf(
-            "id" to order.id,
-            "userId" to order.userId,
-            "address" to order.address,
-            "date" to order.date,
-            "description" to order.description,
-            "status" to order.status,
-            "services" to order.services
-        )
         val key = database.reference.child(Order.ROOT).push().key
         key?.let {
             val userId = auth.currentUser!!.uid
+            val orderMap = mapOf(
+                "id" to key,
+                "userId" to userId,
+                "address" to order.address,
+                "date" to order.date,
+                "description" to order.description,
+                "status" to order.status,
+                "services" to order.services
+            )
             val childUpdates = hashMapOf<String, Any>(
                 "/${Order.ROOT}/$key" to orderMap,
                 "/${User.ROOT}/$userId/${User.ORDERS}/$key" to true

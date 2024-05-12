@@ -5,6 +5,8 @@ class Order(var id: String, var userId: String, var address: String, var date: L
     var services: MutableMap<String, Boolean> = mutableMapOf()
 
     constructor() : this(ID, USERID, ADDRESS, 0, DESCRIPTION, false)
+    constructor(address: String, date: Long, description: String, status: Boolean) :
+            this (ID, USERID, address, date, description, status)
 
     companion object PATH {
         const val ROOT = "Order"
