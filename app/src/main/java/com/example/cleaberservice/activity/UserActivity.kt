@@ -3,9 +3,11 @@ package com.example.cleaberservice.activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Layout.Directions
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -13,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.cleaberservice.R
+import com.example.cleaberservice.fragments.HistoryListFragmentDirections
 import com.example.cleaberservice.fragments.UserMainFragmentDirections
 import com.example.cleaberservice.models.DB
 import com.google.android.material.navigation.NavigationView
@@ -35,24 +38,42 @@ class UserActivity : AppCompatActivity() {
             as NavHostFragment? ?: return
         navController = host.navController
         navView.setupWithNavController(navController)
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+//        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+        appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.userMainFragment,
+            R.id.userTestFragment,
+            R.id.historyListFragment,
+            R.id.orderSubmittingFragment
+        ), drawerLayout)
         val toolbar = findViewById<Toolbar>(R.id.UserActivityToolbar)
         toolbar.title = navController.currentDestination?.label
-//        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar)
         toolbar.setupWithNavController(navController, appBarConfiguration)
-        if(!DB.auth.currentUser!!.isEmailVerified) {
-            navView.menu.findItem(R.id.userMainFragment).isVisible = false
-        }
+//        if(!DB.auth.currentUser!!.isEmailVerified) {
+//            navView.menu.findItem(R.id.userMainFragment).isVisible = false
+//        }
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.userMainFragment -> {
+                    navController.navigate(R.id.userMainFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
                 R.id.userTestFragment -> {
-                    val action = UserMainFragmentDirections.actionUserMainFragmentToUserTestFragment(DB.auth.currentUser!!.uid)
-                    navController.navigate(action)
+//                    val action = UserMainFragmentDirections.actionUserMainFragmentToUserTestFragment(DB.auth.currentUser!!.uid)
+//                    navController.navigate(action)
+                    val bundle = bundleOf("uId" to DB.auth.currentUser!!.uid)
+                    navController.navigate(R.id.userTestFragment, bundle)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.historyListFragment -> {
                     navController.navigate(R.id.historyListFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.orderSubmittingFragment -> {
+                    navController.navigate(R.id.orderSubmittingFragment)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
@@ -76,12 +97,5 @@ class UserActivity : AppCompatActivity() {
             }
         }
         DB.invokeDelegate()
-//        val authListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
-//            if(firebaseAuth.currentUser != null) {
-//                userName.text = DB.users[firebaseAuth.currentUser!!.uid]?.name
-//                userEmail.text = DB.users[firebaseAuth.currentUser!!.uid]?.email
-//            }
-//        }
-//        DB.auth.addAuthStateListener(authListener)
     }
 }

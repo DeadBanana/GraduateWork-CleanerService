@@ -22,9 +22,14 @@ class UserTestFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val args: UserTestFragmentArgs by navArgs()
-        val uId = args.uId
         val tvName = view.findViewById<TextView>(R.id.UserTestFragmentTVName)
-        tvName.text = "Logged user: ${DB.users[uId]?.name}"
+//        val args: UserTestFragmentArgs by navArgs()
+//        val uId = args.uId
+//        if(uId != null)
+//            tvName.text = "Logged user: ${DB.users[uId]?.name}"
+        val uId = arguments?.getString("uId")
+        if(uId != null)
+            tvName.text = "Logged user: ${DB.users[arguments?.getString("uId")]?.name}"
+
     }
 }

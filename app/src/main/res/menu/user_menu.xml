@@ -8,5 +8,8 @@
         android:title="Тест"/>
     <item
         android:id="@+id/historyListFragment"
-        android:title="История заказов"/>
+        android:title="История"/>
+    <item
+        android:id="@+id/orderSubmittingFragment"
+        android:title="Оставить заявку"/>
 </menu>

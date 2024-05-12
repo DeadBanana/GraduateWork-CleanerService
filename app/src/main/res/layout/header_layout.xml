@@ -14,7 +14,7 @@
         android:id="@+id/HeaderTVName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User name"
+        android:text="@string/name"
         android:paddingTop="24dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="32sp"/>
@@ -22,7 +22,7 @@
         android:id="@+id/HeaderTVEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User email"
+        android:text="@string/email"
         android:paddingTop="24dp"
         android:textSize="21sp"/>
 

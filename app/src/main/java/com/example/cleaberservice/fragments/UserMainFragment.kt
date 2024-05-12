@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.NavHostFragment
 import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
@@ -28,9 +29,10 @@ class UserMainFragment : Fragment() {
         val button1 = view.findViewById<Button>(R.id.UserMainFragmentBNav)
 
         button1.setOnClickListener{
-            val action = UserMainFragmentDirections.actionUserMainFragmentToUserTestFragment(DB.auth.currentUser!!.uid)
+//            val action = UserMainFragmentDirections.actionUserMainFragmentToUserTestFragment(DB.auth.currentUser!!.uid)
 //            navController.popBackStack()
-            navController.navigate(action)
+            val bundle = bundleOf("uId" to DB.auth.currentUser!!.uid)
+            navController.navigate(R.id.userTestFragment, bundle)
         }
     }
 }

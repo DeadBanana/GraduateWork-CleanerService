@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.OrderSubmittingFragment"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/OrderSubmittingFragmentEDAddress"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/address"
+        android:textSize="21sp"
+        android:layout_margin="10dp"
+        android:inputType="textPostalAddress"/>
+    <EditText
+        android:id="@+id/OrderSubmittingFragmentEDDate"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:hint="Date (dd.yy.mm)"
+        android:textSize="21sp"
+        android:layout_margin="10dp"
+        android:inputType="date"/>
+    <EditText
+        android:id="@+id/OrderSubmittingFragmentEDDescription"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/description"
+        android:textSize="21sp"
+        android:layout_margin="10dp"
+        android:inputType="textMultiLine"/>
+    <Button
+        android:id="@+id/OrderSubmittingFragmentBServices"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content"
+        android:text="@string/services"
+        android:textSize="21sp"
+        android:layout_margin="10dp"/>
+    <Button
+        android:id="@+id/OrderSubmittingFragmentBSubmit"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:textSize="21sp"
+        android:layout_margin="10dp"/>
+</LinearLayout>
