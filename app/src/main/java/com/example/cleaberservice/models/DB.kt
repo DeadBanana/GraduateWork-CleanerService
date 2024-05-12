@@ -13,11 +13,16 @@ import com.google.firebase.database.ValueEventListener
 object DB {
     val database = FirebaseDatabase.getInstance("https://cleanerservice-be312-default-rtdb.europe-west1.firebasedatabase.app/")
     var users: MutableMap<String, User> = mutableMapOf()
+    var services: MutableMap<String, Service> = mutableMapOf()
+    var orders: MutableMap<String, Order> = mutableMapOf()
     var auth: FirebaseAuth
+    lateinit var currentuId: String
     private var adapterDelegate = mutableListOf<() -> Unit>()
 
     init {
         addValueEventListener(database.getReference(User.ROOT), users)
+        addValueEventListener(database.getReference(Service.ROOT), services)
+        addValueEventListener(database.getReference(Order.ROOT), orders)
         auth = Firebase.auth
     }
 
@@ -43,6 +48,27 @@ object DB {
     fun <T> updateFirebase(ref: DatabaseReference, map: MutableMap<String, T>) {
         // Обновление данных в Firebase
         ref.updateChildren(map as Map<String, Any>)
+    }
+
+    fun addOrder(order: Order) {
+        val orderMap = mapOf(
+            "id" to order.id,
+            "userId" to order.userId,
+            "address" to order.address,
+            "date" to order.date,
+            "description" to order.description,
+            "status" to order.status,
+            "services" to order.services
+        )
+        val key = database.reference.child(Order.ROOT).push().key
+        key?.let {
+            val userId = auth.currentUser!!.uid
+            val childUpdates = hashMapOf<String, Any>(
+                "/${Order.ROOT}/$key" to orderMap,
+                "/${User.ROOT}/$userId/${User.ORDERS}/$key" to true
+            )
+            database.reference.updateChildren(childUpdates)
+        }
     }
 
     fun addAdapter(adapter: () -> Unit) {

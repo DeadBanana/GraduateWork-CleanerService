@@ -26,11 +26,24 @@
             app:defaultNavHost="true"
             app:navGraph="@navigation/routes"/>
     </LinearLayout>
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/UserActivityNavigationView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:menu="@menu/user_menu"/>
+        android:orientation="vertical"
+        android:layout_gravity="start">
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/UserActivityNavigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:headerLayout="@layout/header_layout"
+            app:menu="@menu/user_menu"/>
+        <Button
+            android:id="@+id/UserActivityBBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log out"
+            android:textSize="21sp"/>
+    </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

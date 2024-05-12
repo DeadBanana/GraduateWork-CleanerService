@@ -30,7 +30,7 @@ class RegistrationActivity : AppCompatActivity() {
         edEmail = findViewById(R.id.RegistrationActivityEDEmail)
         edPassword = findViewById(R.id.RegistrationActivityEDPassword)
         edRePassword = findViewById(R.id.RegistrationActivityEDRePassword)
-        pbProgress = findViewById(R.id.loadingPanel)
+        pbProgress = findViewById(R.id.RegistrationActivityRLoad)
     }
 
     fun BRegistrationClick(view: View) {
@@ -76,6 +76,7 @@ class RegistrationActivity : AppCompatActivity() {
                     pbProgress.visibility = View.GONE
                     Toast.makeText(this, "User Auth Successful", Toast.LENGTH_SHORT).show()
                     Log.d("MyLog", "User(${email}, ${password}) Auth Successful<AuthActivity>)")
+                    NavigateByRole(0)
                 }
                 else {
                     pbProgress.visibility = View.GONE
@@ -86,8 +87,15 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     fun BLoginClick(view: View) {
-        val intent = Intent(this, MainActivity::class.java)
         finish()
-        startActivity(intent)
+    }
+
+    fun NavigateByRole(role: Int) {
+        when(role) {
+            else -> {
+                val intent = Intent(this, UserActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 }
