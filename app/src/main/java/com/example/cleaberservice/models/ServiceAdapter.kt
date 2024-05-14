@@ -15,7 +15,7 @@ import com.example.cleaberservice.R
 
 class ServiceAdapter(context: Context, private val services: Map<String, Service>) : BaseAdapter() {
     private var keys = services.keys.toTypedArray()
-    private var selectedServices = arrayListOf<String>()
+    var selectedServices = arrayListOf<String>()
 
     fun updateKeys() {
         keys = services.keys.toTypedArray()
@@ -47,6 +47,19 @@ class ServiceAdapter(context: Context, private val services: Map<String, Service
         tvName.text = getItem(position)?.name
         tvDescription.text = getItem(position)?.description
 
+        if(selectedServices.contains(keys[position])) {
+            checkMark.visibility = View.VISIBLE
+            relativeLayout.visibility = View.GONE
+            bAdd.visibility = View.GONE
+            bRemove.visibility = View.VISIBLE
+        }
+        else {
+            checkMark.visibility = View.GONE
+            relativeLayout.visibility = View.GONE
+            bAdd.visibility = View.VISIBLE
+            bRemove.visibility = View.GONE
+        }
+
         linearLayout.setOnClickListener {
             if(relativeLayout.visibility == View.GONE) {
                 relativeLayout.visibility = View.VISIBLE
@@ -72,9 +85,5 @@ class ServiceAdapter(context: Context, private val services: Map<String, Service
             bRemove.visibility = View.GONE
         }
         return  view
-    }
-
-    public fun getSelected() : ArrayList<String> {
-        return selectedServices
     }
 }

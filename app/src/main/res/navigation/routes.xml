@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/userMainFragment"
         android:name="com.example.cleaberservice.fragments.UserMainFragment"
-        android:label="Главное меню"
+        android:label="@string/title_main"
         tools:layout="@layout/fragment_user_main" >
         <action
             android:id="@+id/action_userMainFragment_to_userTestFragment"
@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/userTestFragment"
         android:name="com.example.cleaberservice.fragments.UserTestFragment"
-        android:label="Тест"
+        android:label="@string/title_test"
         tools:layout="@layout/fragment_user_test">
         <action
             android:id="@+id/action_userTestFragment_to_userMainFragment"
@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/historyListFragment"
         android:name="com.example.cleaberservice.fragments.HistoryListFragment"
-        android:label="История заказов"
+        android:label="@string/title_history"
         tools:layout="@layout/fragment_history_list" >
         <action
             android:id="@+id/action_historyListFragment_to_userMainFragment"
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/orderSubmittingFragment"
         android:name="com.example.cleaberservice.fragments.OrderSubmittingFragment"
-        android:label="Оформление заявки"
+        android:label="@string/title_ordering"
         tools:layout="@layout/fragment_order_submiting" >
         <action
             android:id="@+id/action_orderSubmittingFragment_to_userMainFragment"
@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/servicesListFragment"
         android:name="com.example.cleaberservice.fragments.ServicesListFragment"
-        android:label="Список услуг"
+        android:label="@string/title_services"
         tools:layout="@layout/fragment_services_list" >
         <action
             android:id="@+id/action_servicesListFragment_to_orderSubmittingFragment"

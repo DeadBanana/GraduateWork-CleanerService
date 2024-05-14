@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/userMainFragment"
-        android:title="Главная"/>
+        android:title="@string/title_main"/>
     <item
         android:id="@+id/userTestFragment"
-        android:title="Тест"/>
+        android:title="@string/title_test"/>
     <item
         android:id="@+id/historyListFragment"
-        android:title="История"/>
+        android:title="@string/title_history"/>
     <item
         android:id="@+id/orderSubmittingFragment"
-        android:title="Оставить заявку"/>
+        android:title="@string/title_ordering"/>
 </menu>

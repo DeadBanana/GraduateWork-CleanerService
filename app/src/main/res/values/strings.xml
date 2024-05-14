@@ -14,4 +14,15 @@
     <string name="login">Login</string>
     <string name="logout">Log out</string>
     <string name="register">Registration</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
+    <string name="navigate_to_main_fragment">Navigate to main fragment</string>
+    <string name="navigate_to_test_fragment">Navigate to test fragment</string>
+    <string name="navigate_to_history_fragment">Navigate to history fragment</string>
+    <string name="navigate_to_ordering_fragment">Navigate to ordering fragment</string>
+    <string name="title_main">Главное меню</string>
+    <string name="title_test">Тест</string>
+    <string name="title_history">История</string>
+    <string name="title_ordering">Оформление заявки</string>
+    <string name="title_services">Список услуг</string>
 </resources>

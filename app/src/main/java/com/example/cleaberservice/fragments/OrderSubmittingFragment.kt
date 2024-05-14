@@ -1,12 +1,10 @@
 package com.example.cleaberservice.fragments
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +14,7 @@ import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
 import com.example.cleaberservice.models.Order
 import com.example.cleaberservice.models.SharedViewModel
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -64,11 +63,11 @@ class OrderSubmittingFragment : Fragment() {
             var isError = false
 
             if(address.isEmpty()) {
-                edAddress.setError("Required field")
+                edAddress.error = "Required field"
                 isError = true
             }
             if(date.isEmpty()) {
-                edDate.setError("Required field")
+                edDate.error = "Required field"
                 isError = true
             }
             if(!date.matches(Regex("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)" +
@@ -80,15 +79,22 @@ class OrderSubmittingFragment : Fragment() {
                 isError = true
             }
             if(listServices.isEmpty()) {
-                bServices.setError("Required")
+                bServices.error = "Required"
                 isError = true
             }
 
             if(isError)
                 return@setOnClickListener
 
-            val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-            val dateLong = format.parse(date)?.time ?: 0
+            val dateLong: Long
+            try {
+                val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                dateLong = format.parse(date)?.time ?: 0
+            }
+            catch (ex: ParseException) {
+                edDate.error = "Wrong date format (dd.mm.yyyy)"
+                return@setOnClickListener
+            }
             val order = Order(address, dateLong, description, false)
             listServices.forEach {
                 order.services[it] = true
