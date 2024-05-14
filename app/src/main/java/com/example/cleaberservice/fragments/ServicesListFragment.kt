@@ -30,9 +30,12 @@ class ServicesListFragment : Fragment() {
         val bDone = view.findViewById<Button>(R.id.ServicesListFragmentBDone)
         val lvServices = view.findViewById<ListView>(R.id.ServicesListFragmentLVServices)
         val adapter = ServiceAdapter(view.context, DB.services)
+        viewModel.selectedItems.observe(viewLifecycleOwner) { items ->
+            adapter.selectedServices = items
+        }
         lvServices.adapter = adapter
         bDone.setOnClickListener {
-            viewModel.selectedItems.value = adapter.getSelected()
+            viewModel.selectedItems.value = adapter.selectedServices
             navController.popBackStack()
         }
     }

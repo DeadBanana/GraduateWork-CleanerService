@@ -55,28 +55,30 @@ class UserActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.userMainFragment -> {
-                    navController.navigate(R.id.userMainFragment)
+                    navController.navigate(menuItem.itemId)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+
                 R.id.userTestFragment -> {
-//                    val action = UserMainFragmentDirections.actionUserMainFragmentToUserTestFragment(DB.auth.currentUser!!.uid)
-//                    navController.navigate(action)
                     val bundle = bundleOf("uId" to DB.auth.currentUser!!.uid)
-                    navController.navigate(R.id.userTestFragment, bundle)
+                    navController.navigate(menuItem.itemId, bundle)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+
                 R.id.historyListFragment -> {
-                    navController.navigate(R.id.historyListFragment)
+                    navController.navigate(menuItem.itemId)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+
                 R.id.orderSubmittingFragment -> {
-                    navController.navigate(R.id.orderSubmittingFragment)
+                    navController.navigate(menuItem.itemId)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+
                 else -> false
             }
         }
