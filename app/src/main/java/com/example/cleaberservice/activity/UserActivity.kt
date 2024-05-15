@@ -49,9 +49,9 @@ class UserActivity : AppCompatActivity() {
         toolbar.title = navController.currentDestination?.label
         setSupportActionBar(toolbar)
         toolbar.setupWithNavController(navController, appBarConfiguration)
-//        if(!DB.auth.currentUser!!.isEmailVerified) {
-//            navView.menu.findItem(R.id.userMainFragment).isVisible = false
-//        }
+        if(!DB.auth.currentUser!!.isEmailVerified) {
+            navView.menu.findItem(R.id.userTestFragment).isVisible = false
+        }
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.userMainFragment -> {

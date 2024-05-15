@@ -19,10 +19,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
             <Button
-                android:id="@+id/UserMainFragmentBNav"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/navigate_to_test_fragment"
+                android:id="@+id/UserMainFragmentBNavHistory"
+                android:layout_width="350dp"
+                android:layout_height="65sp"
+                android:layout_margin="15dp"
+                android:text="@string/navigate_to_history_fragment"
+                android:textSize="21sp"/>
+            <Button
+                android:id="@+id/UserMainFragmentBNavOrdering"
+                android:layout_width="350dp"
+                android:layout_height="65sp"
+                android:layout_margin="15dp"
+                android:text="@string/navigate_to_ordering_fragment"
                 android:textSize="21sp"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

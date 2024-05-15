@@ -63,11 +63,11 @@ class OrderSubmittingFragment : Fragment() {
             var isError = false
 
             if(address.isEmpty()) {
-                edAddress.error = "Required field"
+                edAddress.error = getString(R.string.ex_required)
                 isError = true
             }
             if(date.isEmpty()) {
-                edDate.error = "Required field"
+                edDate.error = getString(R.string.ex_required)
                 isError = true
             }
             if(!date.matches(Regex("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)" +
@@ -75,11 +75,11 @@ class OrderSubmittingFragment : Fragment() {
                         "0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])" +
                         "|(?:(?:16|[2468][048]|[3579][26])00))))\$|^(?:0?[1-9]|1\\d|2[0-8])" +
                         "(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$"))) {
-                edDate.setError("Wrong date format (dd.mm.yyyy)")
+                edDate.error = getString(R.string.ex_date_format)
                 isError = true
             }
             if(listServices.isEmpty()) {
-                bServices.error = "Required"
+                bServices.error = getString(R.string.ex_required)
                 isError = true
             }
 
@@ -92,7 +92,7 @@ class OrderSubmittingFragment : Fragment() {
                 dateLong = format.parse(date)?.time ?: 0
             }
             catch (ex: ParseException) {
-                edDate.error = "Wrong date format (dd.mm.yyyy)"
+                edDate.error = getString(R.string.ex_date_format)
                 return@setOnClickListener
             }
             val order = Order(address, dateLong, description, false)
@@ -100,7 +100,8 @@ class OrderSubmittingFragment : Fragment() {
                 order.services[it] = true
             }
             DB.addOrder(order)
-            Toast.makeText(view.context, "Success", Toast.LENGTH_SHORT).show()
+            viewModel.selectedItems.value?.clear()
+            Toast.makeText(view.context, R.string.msg_success, Toast.LENGTH_SHORT).show()
             navController.popBackStack()
         }
     }

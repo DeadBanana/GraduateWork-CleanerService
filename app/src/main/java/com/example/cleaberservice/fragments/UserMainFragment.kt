@@ -26,13 +26,15 @@ class UserMainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val navController = NavHostFragment.findNavController(this)
 
-        val button1 = view.findViewById<Button>(R.id.UserMainFragmentBNav)
+        val button1 = view.findViewById<Button>(R.id.UserMainFragmentBNavHistory)
+        val button2 = view.findViewById<Button>(R.id.UserMainFragmentBNavOrdering)
 
-        button1.setOnClickListener{
-//            val action = UserMainFragmentDirections.actionUserMainFragmentToUserTestFragment(DB.auth.currentUser!!.uid)
-//            navController.popBackStack()
-            val bundle = bundleOf("uId" to DB.auth.currentUser!!.uid)
-            navController.navigate(R.id.userTestFragment, bundle)
+        button1.setOnClickListener {
+            navController.navigate(R.id.historyListFragment)
+        }
+
+        button2.setOnClickListener {
+            navController.navigate(R.id.orderSubmittingFragment)
         }
     }
 }

@@ -20,7 +20,7 @@
         android:id="@+id/OrderSubmittingFragmentEDDate"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:hint="Date (dd.yy.mm)"
+        android:hint="@string/date_formatted"
         android:textSize="21sp"
         android:layout_margin="10dp"
         android:inputType="date"/>
@@ -43,7 +43,7 @@
         android:id="@+id/OrderSubmittingFragmentBSubmit"
         android:layout_width="350sp"
         android:layout_height="wrap_content"
-        android:text="Done"
+        android:text="@string/done"
         android:textSize="21sp"
         android:layout_margin="10dp"/>
 </LinearLayout>

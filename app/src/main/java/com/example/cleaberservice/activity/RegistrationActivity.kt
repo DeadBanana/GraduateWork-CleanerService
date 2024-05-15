@@ -44,24 +44,24 @@ class RegistrationActivity : AppCompatActivity() {
         pbProgress.visibility = View.VISIBLE
         var isError = false
         if(name.isEmpty()) {
-            edName.error = "Required field"
+            edName.error = getString(R.string.ex_required)
             isError = true
         }
         if(email.isEmpty()) {
-            edEmail.error = "Required field"
+            edEmail.error = getString(R.string.ex_required)
             isError = true
         }
         if(password.isEmpty() || password.length <= 6) {
-            edPassword.error = "Password length must be greater than 6"
+            edPassword.error = getString(R.string.ex_password)
             isError = true
         }
         if(rePassword != password) {
-            edRePassword.error = "Password did not match"
+            edRePassword.error = getString(R.string.ex_rep_password)
             isError = true
         }
         if(isError) {
             pbProgress.visibility = View.GONE
-            Toast.makeText(this, "Wrong data", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.msg_wrong_data, Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -74,13 +74,13 @@ class RegistrationActivity : AppCompatActivity() {
                     DB.users[uId] = user
                     DB.updateFirebase(DB.database.getReference(User.PATH.ROOT), DB.users)
                     pbProgress.visibility = View.GONE
-                    Toast.makeText(this, "User Auth Successful", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.msg_success, Toast.LENGTH_SHORT).show()
                     Log.d("MyLog", "User(${email}, ${password}) Auth Successful<AuthActivity>)")
                     NavigateByRole(0)
                 }
                 else {
                     pbProgress.visibility = View.GONE
-                    Toast.makeText(this, "User Auth Failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.msg_fail, Toast.LENGTH_SHORT).show()
                     Log.d("MyLog", "User(${email}, ${password}) Auth Failed<AuthActivity>")
                 }
             })
