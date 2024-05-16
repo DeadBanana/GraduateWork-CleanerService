@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cleaner_routes"
+    app:startDestination="@id/cleanerMainFragment">
+
+    <fragment
+        android:id="@+id/cleanerMainFragment"
+        android:name="com.example.cleaberservice.fragments.CleanerMainFragment"
+        android:label="@string/title_main"
+        tools:layout="@layout/fragment_cleaner_main" />
+</navigation>

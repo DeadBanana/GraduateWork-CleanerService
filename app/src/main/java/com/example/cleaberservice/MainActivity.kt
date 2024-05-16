@@ -11,12 +11,17 @@ import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.example.cleaberservice.activity.CleanerActivity
 import com.example.cleaberservice.activity.RegistrationActivity
 import com.example.cleaberservice.activity.UserActivity
 import com.example.cleaberservice.models.DB
+import com.example.cleaberservice.models.User
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 class MainActivity : AppCompatActivity() {
     lateinit var edEmail: EditText
@@ -39,8 +44,19 @@ class MainActivity : AppCompatActivity() {
                 putString("uId", currentUser.uid)
                 apply()
             }
-            Log.d("MyLog", "Current User is ${DB.users[currentUser.uid]?.name}<LoginActivity>")
-            NavigateByRole(0)
+            val ref = DB.database.getReference(User.ROOT).child(currentUser.uid)
+            ref.addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val user = dataSnapshot.getValue(User::class.java)
+                    if (user != null) {
+                        NavigateByRole(user.role)
+                        Log.d("MyLog", "Current User is ${user.name}<LoginActivity>")
+                    }
+                }
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Log.d("MyLog", "loadUser:onCancelled", databaseError.toException())
+                }
+            })
         }
         else
             Log.d("MyLog", "Current User is null<LoginActivity>")
@@ -66,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                         putString("uId", task.result.user!!.uid)
                         apply()
                     }
-                    NavigateByRole(0)
+                    NavigateByRole(DB.users[task.result.user!!.uid]!!.role)
                 }
                 else
                 {
@@ -92,6 +108,10 @@ class MainActivity : AppCompatActivity() {
 
     fun NavigateByRole(role: Int) {
         when(role) {
+            1 -> {
+                val intent = Intent(this, CleanerActivity::class.java)
+                startActivity(intent)
+            }
             else -> {
                 val intent = Intent(this, UserActivity::class.java)
                 startActivity(intent)

@@ -5,21 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.RegistrationActivity">
-
-    <RelativeLayout
-        android:id="@+id/RegistrationActivityRLoad"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#77000000"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:indeterminate="true" />
-    </RelativeLayout>
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
@@ -84,5 +69,19 @@
             android:text="@string/login"
             android:textSize="21sp" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/RegistrationActivityRLoad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#77000000"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

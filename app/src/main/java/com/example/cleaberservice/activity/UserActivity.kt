@@ -32,7 +32,7 @@ class UserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
 
-        drawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout = findViewById(R.id.user_drawer_layout)
         navView = findViewById(R.id.UserActivityNavigationView)
         val host: NavHostFragment = supportFragmentManager.findFragmentById(R.id.UserActivityNavHosFragment)
             as NavHostFragment? ?: return

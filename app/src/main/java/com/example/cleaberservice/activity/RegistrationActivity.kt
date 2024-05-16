@@ -22,6 +22,7 @@ class RegistrationActivity : AppCompatActivity() {
     lateinit var edPassword: EditText
     lateinit var edRePassword: EditText
     lateinit var pbProgress: RelativeLayout
+    var role = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,24 @@ class RegistrationActivity : AppCompatActivity() {
         edPassword = findViewById(R.id.RegistrationActivityEDPassword)
         edRePassword = findViewById(R.id.RegistrationActivityEDRePassword)
         pbProgress = findViewById(R.id.RegistrationActivityRLoad)
+        edName.setOnLongClickListener {
+            when (role) {
+                1 -> {
+                    role = 0
+                    Toast.makeText(this, "Changed", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                0 -> {
+                    role = 1
+                    Toast.makeText(this, "Changed", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> {
+                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+                    false
+                }
+            }
+        }
     }
 
     fun BRegistrationClick(view: View) {
@@ -70,13 +89,18 @@ class RegistrationActivity : AppCompatActivity() {
             OnCompleteListener { task ->
                 if(task.isSuccessful) {
                     val uId = DB.auth.currentUser?.uid
-                    val user = User(uId!!, name, email, 0)
+                    val user = User(uId!!, name, email, role)
                     DB.users[uId] = user
                     DB.updateFirebase(DB.database.getReference(User.PATH.ROOT), DB.users)
                     pbProgress.visibility = View.GONE
+                    val sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE)
+                    with(sharedPreferences.edit()) {
+                        putString("uId", task.result.user!!.uid)
+                        apply()
+                    }
                     Toast.makeText(this, R.string.msg_success, Toast.LENGTH_SHORT).show()
                     Log.d("MyLog", "User(${email}, ${password}) Auth Successful<AuthActivity>)")
-                    NavigateByRole(0)
+                    NavigateByRole(role)
                 }
                 else {
                     pbProgress.visibility = View.GONE
@@ -92,6 +116,10 @@ class RegistrationActivity : AppCompatActivity() {
 
     fun NavigateByRole(role: Int) {
         when(role) {
+            1 -> {
+                val intent = Intent(this, CleanerActivity::class.java)
+                startActivity(intent)
+            }
             else -> {
                 val intent = Intent(this, UserActivity::class.java)
                 startActivity(intent)
