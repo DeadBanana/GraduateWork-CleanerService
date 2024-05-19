@@ -77,10 +77,17 @@ class OrderAdapter(context: Context, private val orders: Map<String, Order>,
         }
 
         bAbout.setOnClickListener {
-//            if(navController != null) {
-//                val bundle = bundleOf("orderId" to getItem(position)?.id)
-//                navController.navigate(R.id.orderDetailsFragment, bundle)
-//            }
+            if(navController != null) {
+                val bundle = bundleOf("orderId" to getItem(position)?.id)
+                when(DB.users[DB.auth.currentUser!!.uid]!!.role) {
+                    1 -> {
+                        navController.navigate(R.id.orderDetailsFragment, bundle)
+                    }
+                    else -> {
+                        Toast.makeText(view.context, "TODO", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
         return view
     }

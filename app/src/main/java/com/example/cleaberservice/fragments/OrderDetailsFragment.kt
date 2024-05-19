@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.fragment.NavHostFragment
 import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
 import com.example.cleaberservice.models.Order
@@ -27,6 +28,7 @@ class OrderDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val navController = NavHostFragment.findNavController(this)
 
         val tvDate: TextView = view.findViewById(R.id.OrderDetailsFragmentTVDate)
         val tvAddress: TextView = view.findViewById(R.id.OrderDetailsFragmentTVAddress)
@@ -48,6 +50,8 @@ class OrderDetailsFragment : Fragment() {
         tvDescription.text = contextOrder.description
 
         bRespond.setOnClickListener {
+            DB.confirmOrder(contextOrder)
+            navController.popBackStack()
             Toast.makeText(view.context, "Pressed", Toast.LENGTH_SHORT).show()
             Log.d("MyLog","Button Pressed<OrderDetailsFragment>")
         }

@@ -31,6 +31,18 @@ class CleanerMainFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_cleaner_main, container, false)
     }
 
+    private val sortedOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
+    private lateinit var orderAdapter: OrderAdapter
+
+    override fun onResume() {
+        super.onResume()
+        val filteredOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
+        sortedOrders.clear()
+        sortedOrders.putAll(filteredOrders)
+        orderAdapter.updateKeys()
+        orderAdapter.notifyDataSetChanged()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fab: FloatingActionButton = view.findViewById(R.id.CleanerMainFragmentFBFilter)
@@ -40,8 +52,7 @@ class CleanerMainFragment : Fragment() {
         var selectedDateBefore: Long = 631152000000 //01.01.1990
         var selectedDateAfter: Long = 4733856000000 //01.01.2120
         var selectedServiceId: String?
-        val sortedOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
-        var orderAdapter = OrderAdapter(view.context, sortedOrders, navController)
+        orderAdapter = OrderAdapter(view.context, sortedOrders, navController)
         lvOrders.adapter = orderAdapter
 
         fab.setOnClickListener { _ ->
@@ -73,8 +84,10 @@ class CleanerMainFragment : Fragment() {
                 .setTitle("Фильтр")
                 .setNegativeButton("Сбросить") {dialog, _ ->
                     val filteredOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
-                    orderAdapter = OrderAdapter(view.context, filteredOrders, navController)
-                    lvOrders.adapter = orderAdapter
+                    sortedOrders.clear()
+                    sortedOrders.putAll(filteredOrders)
+                    orderAdapter.updateKeys()
+                    orderAdapter.notifyDataSetChanged()
                     dialog.dismiss()
                 }
                 .setPositiveButton("Применить") {dialog, _ ->
@@ -88,8 +101,10 @@ class CleanerMainFragment : Fragment() {
                                 && x.value.date >= selectedDateBefore
                                 && x.value.date <= selectedDateAfter
                                 && !x.value.status}.toMutableMap()
-                    orderAdapter = OrderAdapter(view.context, filteredOrders, navController)
-                    lvOrders.adapter = orderAdapter
+                    sortedOrders.clear()
+                    sortedOrders.putAll(filteredOrders)
+                    orderAdapter.updateKeys()
+                    orderAdapter.notifyDataSetChanged()
                     Log.d("MyLog", "Selected service id:${selectedServiceId}<CleanerMainFrame>")
                     dialog.dismiss()
                 }
