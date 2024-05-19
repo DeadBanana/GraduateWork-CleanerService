@@ -19,22 +19,31 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="до"/>
+            android:text="@string/date_before"/>
         <EditText
             android:id="@+id/filterDialogDateBefore"
             android:layout_width="125dp"
             android:layout_height="wrap_content"
-            android:editable="false"/>
+            android:focusable="false"
+            android:clickable="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="после"/>
+            android:text="@string/date_after"/>
         <EditText
             android:id="@+id/filterDialogDateAfter"
             android:layout_width="125dp"
             android:layout_height="wrap_content"
-            android:editable="false"/>
+            android:focusable="false"
+            android:clickable="true"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/service"
+        android:textSize="21sp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"/>
     <Spinner
         android:id="@+id/filterDialogServiceSpinner"
         android:layout_width="250dp"

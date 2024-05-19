@@ -23,7 +23,8 @@
         android:hint="@string/date_formatted"
         android:textSize="21sp"
         android:layout_margin="10dp"
-        android:inputType="date"/>
+        android:focusable="false"
+        android:clickable="true"/>
     <EditText
         android:id="@+id/OrderSubmittingFragmentEDDescription"
         android:layout_width="350dp"

@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        pbProgress.visibility = View.VISIBLE
         val currentUser = DB.auth.currentUser
         if (currentUser != null) {
             val sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE)
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val user = dataSnapshot.getValue(User::class.java)
                     if (user != null) {
+                        pbProgress.visibility = View.GONE
                         NavigateByRole(user.role)
                         Log.d("MyLog", "Current User is ${user.name}<LoginActivity>")
                     }
@@ -57,9 +59,12 @@ class MainActivity : AppCompatActivity() {
                     Log.d("MyLog", "loadUser:onCancelled", databaseError.toException())
                 }
             })
+            pbProgress.visibility = View.GONE
         }
-        else
+        else {
             Log.d("MyLog", "Current User is null<LoginActivity>")
+            pbProgress.visibility = View.GONE
+        }
         Toast.makeText(this, "OnStart", Toast.LENGTH_SHORT).show()
     }
 

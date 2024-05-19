@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,9 +18,7 @@ import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
 import com.example.cleaberservice.models.OrderAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.util.Date
 import java.util.Locale
-import kotlin.math.log
 
 class CleanerMainFragment : Fragment() {
 
@@ -29,7 +26,6 @@ class CleanerMainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cleaner_main, container, false)
     }
 
@@ -38,34 +34,33 @@ class CleanerMainFragment : Fragment() {
         val fab: FloatingActionButton = view.findViewById(R.id.CleanerMainFragmentFBFilter)
         val lvOrders = view.findViewById<ListView>(R.id.CleanerMainFragmentLVOrders)
 
-        var selectedDateBefore: Date
-        var selectedDateAfter: Date
-        var selectedServiceId: String
-        var sortedOrders = DB.orders.filter { x -> !x.value.status }
+        var selectedDateBefore: Long = 631152000000 //01.01.1990
+        var selectedDateAfter: Long = 4733856000000 //01.01.2120
+        var selectedServiceId: String?
+        val sortedOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
         var orderAdapter = OrderAdapter(view.context, sortedOrders)
         lvOrders.adapter = orderAdapter
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener { _ ->
             val dialogView = LayoutInflater.from(view.context).inflate(R.layout.filter_dialog, null)
             val dateBefore = dialogView.findViewById<EditText>(R.id.filterDialogDateBefore)
             val dateAfter = dialogView.findViewById<EditText>(R.id.filterDialogDateAfter)
             val servicesSpinner = dialogView.findViewById<Spinner>(R.id.filterDialogServiceSpinner)
 
             dateBefore.setOnClickListener {
-                selectedDateBefore = showDateDialog(view)
-                val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-                val formattedDate = format.format(selectedDateBefore)
-                dateBefore.setText(formattedDate)
+                showDateDialog(view, dateBefore) { date ->
+                    selectedDateBefore = date
+                }
             }
             dateAfter.setOnClickListener {
-                selectedDateAfter = showDateDialog(view)
-                val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-                val formattedDate = format.format(selectedDateAfter)
-                dateAfter.setText(formattedDate)
+                showDateDialog(view, dateAfter) { date ->
+                    selectedDateAfter = date
+                }
             }
 
             val services = DB.services.values.toList()
-            val servicesNames = services.map { it.name }
+            val servicesNames = mutableListOf("Все услуги")
+            servicesNames.addAll(services.map{ it.name })
             val adapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, servicesNames)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             servicesSpinner.adapter = adapter
@@ -74,11 +69,24 @@ class CleanerMainFragment : Fragment() {
                 .setView(dialogView)
                 .setTitle("Фильтр")
                 .setNegativeButton("Сбросить") {dialog, _ ->
+                    val filteredOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
+                    orderAdapter = OrderAdapter(view.context, filteredOrders)
+                    lvOrders.adapter = orderAdapter
                     dialog.dismiss()
                 }
                 .setPositiveButton("Применить") {dialog, _ ->
-
-                    selectedServiceId = services[servicesSpinner.selectedItemPosition].id
+                    selectedServiceId = if (servicesSpinner.selectedItemPosition != 0) {
+                        services[servicesSpinner.selectedItemPosition - 1].id
+                    }
+                    else
+                        null
+                    val filteredOrders = DB.orders.filter { x ->
+                        (selectedServiceId == null || x.value.services[selectedServiceId] != null)
+                                && x.value.date >= selectedDateBefore
+                                && x.value.date <= selectedDateAfter
+                                && !x.value.status}.toMutableMap()
+                    orderAdapter = OrderAdapter(view.context, filteredOrders)
+                    lvOrders.adapter = orderAdapter
                     Log.d("MyLog", "Selected service id:${selectedServiceId}<CleanerMainFrame>")
                     dialog.dismiss()
                 }
@@ -87,23 +95,24 @@ class CleanerMainFragment : Fragment() {
         }
     }
 
-    fun showDateDialog(view: View): Date {
+    fun showDateDialog(view: View, editText: EditText, callback: (Long) -> Unit) {
         val now = Calendar.getInstance()
         val year = now.get(Calendar.YEAR)
         val month = now.get(Calendar.MONTH)
         val day = now.get(Calendar.DAY_OF_MONTH)
-        var date: Date = now.time
 
-        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, selectedYear, monthOfYear, dayOfMonth ->
             val selectedDate = Calendar.getInstance()
-            selectedDate.set(Calendar.YEAR, year)
+            selectedDate.set(Calendar.YEAR, selectedYear)
             selectedDate.set(Calendar.MONTH, monthOfYear)
             selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            date = selectedDate.time
+            val date = selectedDate.time
+            val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+            val formattedDate = format.format(date)
+            editText.setText(formattedDate)
             Log.d("MyLog", "Selected date: $date")
+            callback(date.time)
         }
         DatePickerDialog(view.context, dateSetListener, year, month, day).show()
-
-        return date
     }
 }

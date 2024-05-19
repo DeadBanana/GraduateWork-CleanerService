@@ -1,6 +1,9 @@
 package com.example.cleaberservice.fragments
 
+import android.app.DatePickerDialog
+import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,11 +41,33 @@ class OrderSubmittingFragment : Fragment() {
         val bDone = view.findViewById<Button>(R.id.OrderSubmittingFragmentBSubmit)
 
         var listServices = arrayListOf<String>()
+        var dateLong: Long = Calendar.getInstance().time.time
 
         val viewModel: SharedViewModel by activityViewModels()
 
         viewModel.selectedItems.observe(viewLifecycleOwner) {items ->
             listServices = items
+        }
+
+        edDate.setOnClickListener {
+            val now = Calendar.getInstance()
+            val year = now.get(Calendar.YEAR)
+            val month = now.get(Calendar.MONTH)
+            val day = now.get(Calendar.DAY_OF_MONTH)
+
+            val dateSetListener = DatePickerDialog.OnDateSetListener { _, selectedYear, monthOfYear, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(Calendar.YEAR, selectedYear)
+                selectedDate.set(Calendar.MONTH, monthOfYear)
+                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                val date = selectedDate.time
+                val format = android.icu.text.SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                val formattedDate = format.format(date)
+                edDate.text = formattedDate
+                dateLong = date.time
+                Log.d("MyLog", "Selected date: $date")
+            }
+            DatePickerDialog(view.context, dateSetListener, year, month, day).show()
         }
 
         bServices.setOnClickListener {
@@ -70,14 +95,14 @@ class OrderSubmittingFragment : Fragment() {
                 edDate.error = getString(R.string.ex_required)
                 isError = true
             }
-            if(!date.matches(Regex("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)" +
-                        "(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$|^(?:29(\\/|-|\\.)" +
-                        "0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])" +
-                        "|(?:(?:16|[2468][048]|[3579][26])00))))\$|^(?:0?[1-9]|1\\d|2[0-8])" +
-                        "(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$"))) {
-                edDate.error = getString(R.string.ex_date_format)
-                isError = true
-            }
+//            if(!date.matches(Regex("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)" +
+//                        "(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$|^(?:29(\\/|-|\\.)" +
+//                        "0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])" +
+//                        "|(?:(?:16|[2468][048]|[3579][26])00))))\$|^(?:0?[1-9]|1\\d|2[0-8])" +
+//                        "(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$"))) {
+//                edDate.error = getString(R.string.ex_date_format)
+//                isError = true
+//            }
             if(listServices.isEmpty()) {
                 bServices.error = getString(R.string.ex_required)
                 isError = true
@@ -86,15 +111,15 @@ class OrderSubmittingFragment : Fragment() {
             if(isError)
                 return@setOnClickListener
 
-            val dateLong: Long
-            try {
-                val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-                dateLong = format.parse(date)?.time ?: 0
-            }
-            catch (ex: ParseException) {
-                edDate.error = getString(R.string.ex_date_format)
-                return@setOnClickListener
-            }
+//            val dateLong: Long
+//            try {
+//                val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+//                dateLong = format.parse(date)?.time ?: 0
+//            }
+//            catch (ex: ParseException) {
+//                edDate.error = getString(R.string.ex_date_format)
+//                return@setOnClickListener
+//            }
             val order = Order(address, dateLong, description, false)
             listServices.forEach {
                 order.services[it] = true

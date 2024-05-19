@@ -1,6 +1,7 @@
 package com.example.cleaberservice.models
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.cleaberservice.R
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 class OrderAdapter(context: Context, private val orders: Map<String, Order>) : BaseAdapter() {
@@ -38,7 +40,14 @@ class OrderAdapter(context: Context, private val orders: Map<String, Order>) : B
         val tvStatus: TextView = view.findViewById(R.id.listOrderStatus)
 
         val formatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-        tvDate.text = formatter.format(getItem(position)?.date)
+//        tvDate.text = formatter.format(getItem(position)?.date)
+        val orderDateLong = getItem(position)?.date
+        if (orderDateLong is Long) {
+            val orderDate = Date(orderDateLong)
+            tvDate.text = formatter.format(orderDate)
+        } else {
+            Log.d("MyLog", "Invalid date: $orderDateLong")
+        }
         tvAddress.text = getItem(position)?.address
         tvStatus.text = getItem(position)?.status.toString()
 

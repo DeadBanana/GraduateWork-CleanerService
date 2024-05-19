@@ -5,7 +5,10 @@
     <string name="address">Адрес</string>
     <string name="description">Описание</string>
     <string name="date">Дата</string>
+    <string name="date_before">с</string>
+    <string name="date_after">по</string>
     <string name="services">Услуги</string>
+    <string name="service">Услуга</string>
     <string name="name">Имя</string>
     <string name="status">Статус</string>
     <string name="email">E-mail</string>
