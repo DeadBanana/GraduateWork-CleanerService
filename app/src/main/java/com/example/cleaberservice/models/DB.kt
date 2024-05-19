@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlin.math.log
 
 object DB {
     val database = FirebaseDatabase.getInstance("https://cleanerservice-be312-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -16,7 +17,6 @@ object DB {
     var services: MutableMap<String, Service> = mutableMapOf()
     var orders: MutableMap<String, Order> = mutableMapOf()
     var auth: FirebaseAuth
-    lateinit var currentuId: String
     private var adapterDelegate = mutableListOf<() -> Unit>()
 
     init {
@@ -40,13 +40,12 @@ object DB {
                 invokeDelegate()
             }
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.d("MyLog", "Data read Error<DB>", databaseError.toException())
+                Log.d("MyLog", "Data read Error<DataBase>", databaseError.toException())
             }
         })
     }
 
     fun <T> updateFirebase(ref: DatabaseReference, map: MutableMap<String, T>) {
-        // Обновление данных в Firebase
         ref.updateChildren(map as Map<String, Any>)
     }
 
@@ -68,6 +67,26 @@ object DB {
                 "/${User.ROOT}/$userId/${User.ORDERS}/$key" to true
             )
             database.reference.updateChildren(childUpdates)
+        }
+    }
+
+    fun confirmOrder(order: Order) {
+        val user = users[auth.currentUser?.uid]
+        if(user == null) {
+            Log.d("MyLog", "Null User<DataBase>")
+        }
+        else {
+            if(user.role != 1) {
+                Log.d("MyLog","WrongUserRole<DataBase>")
+            }
+            else {
+                val childUpdates = hashMapOf<String, Any>(
+                    "/${Order.ROOT}/${order.id}/${Order.STATUS}" to true,
+                    "/${User.ROOT}/${user.id}/${User.ORDERS}/${order.id}" to true,
+                    "/${Order.ROOT}/${order.id}/${Order.CLEANERS}/${user.id}" to true
+                )
+                database.reference.updateChildren(childUpdates)
+            }
         }
     }
 

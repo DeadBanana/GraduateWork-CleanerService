@@ -14,6 +14,8 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
 import com.example.cleaberservice.models.OrderAdapter
@@ -33,12 +35,13 @@ class CleanerMainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val fab: FloatingActionButton = view.findViewById(R.id.CleanerMainFragmentFBFilter)
         val lvOrders = view.findViewById<ListView>(R.id.CleanerMainFragmentLVOrders)
+        val navController = NavHostFragment.findNavController(this)
 
         var selectedDateBefore: Long = 631152000000 //01.01.1990
         var selectedDateAfter: Long = 4733856000000 //01.01.2120
         var selectedServiceId: String?
         val sortedOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
-        var orderAdapter = OrderAdapter(view.context, sortedOrders)
+        var orderAdapter = OrderAdapter(view.context, sortedOrders, navController)
         lvOrders.adapter = orderAdapter
 
         fab.setOnClickListener { _ ->
@@ -70,7 +73,7 @@ class CleanerMainFragment : Fragment() {
                 .setTitle("Фильтр")
                 .setNegativeButton("Сбросить") {dialog, _ ->
                     val filteredOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
-                    orderAdapter = OrderAdapter(view.context, filteredOrders)
+                    orderAdapter = OrderAdapter(view.context, filteredOrders, navController)
                     lvOrders.adapter = orderAdapter
                     dialog.dismiss()
                 }
@@ -85,7 +88,7 @@ class CleanerMainFragment : Fragment() {
                                 && x.value.date >= selectedDateBefore
                                 && x.value.date <= selectedDateAfter
                                 && !x.value.status}.toMutableMap()
-                    orderAdapter = OrderAdapter(view.context, filteredOrders)
+                    orderAdapter = OrderAdapter(view.context, filteredOrders, navController)
                     lvOrders.adapter = orderAdapter
                     Log.d("MyLog", "Selected service id:${selectedServiceId}<CleanerMainFrame>")
                     dialog.dismiss()

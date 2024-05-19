@@ -9,5 +9,21 @@
         android:id="@+id/cleanerMainFragment"
         android:name="com.example.cleaberservice.fragments.CleanerMainFragment"
         android:label="@string/title_main"
-        tools:layout="@layout/fragment_cleaner_main" />
+        tools:layout="@layout/fragment_cleaner_main" >
+        <action
+            android:id="@+id/action_cleanerMainFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.example.cleaberservice.fragments.OrderDetailsFragment"
+        android:label="@string/title_order_details"
+        tools:layout="@layout/fragment_order_details" >
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_cleanerMainFragment"
+            app:destination="@id/cleanerMainFragment" />
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_cleanerMainFragment2"
+            app:destination="@id/cleanerMainFragment" />
+    </fragment>
 </navigation>

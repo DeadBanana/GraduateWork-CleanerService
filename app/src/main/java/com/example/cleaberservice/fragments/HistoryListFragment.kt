@@ -30,7 +30,7 @@ class HistoryListFragment : Fragment() {
         DB.users[DB.auth.currentUser!!.uid]!!.orders.keys.forEach {
             orders[it] = DB.orders[it]!!
         }
-        adapter = OrderAdapter(view.context, orders)
+        adapter = OrderAdapter(view.context, orders, null)
         lvHistory.adapter = adapter
     }
 }

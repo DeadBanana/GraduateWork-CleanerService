@@ -11,12 +11,16 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.cleaberservice.R
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class OrderAdapter(context: Context, private val orders: Map<String, Order>) : BaseAdapter() {
+class OrderAdapter(context: Context, private val orders: Map<String, Order>,
+                   private val navController: NavController?) : BaseAdapter() {
     private var keys =  orders.keys.toTypedArray()
     private var selected: Int = -1
 
@@ -73,7 +77,10 @@ class OrderAdapter(context: Context, private val orders: Map<String, Order>) : B
         }
 
         bAbout.setOnClickListener {
-            Toast.makeText(view.context, "TODO", Toast.LENGTH_SHORT).show()
+//            if(navController != null) {
+//                val bundle = bundleOf("orderId" to getItem(position)?.id)
+//                navController.navigate(R.id.orderDetailsFragment, bundle)
+//            }
         }
         return view
     }

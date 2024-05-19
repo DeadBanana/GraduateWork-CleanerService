@@ -83,7 +83,7 @@ class OrderSubmittingFragment : Fragment() {
         bDone.setOnClickListener {
             val address = edAddress.text.trim().toString()
             val date = edDate.text.trim().toString()
-            val description = edDescription.text.trim().toString()
+            var description = edDescription.text.trim().toString()
 
             var isError = false
 
@@ -120,6 +120,8 @@ class OrderSubmittingFragment : Fragment() {
 //                edDate.error = getString(R.string.ex_date_format)
 //                return@setOnClickListener
 //            }
+            if(description.isEmpty())
+                description = "Без описания"
             val order = Order(address, dateLong, description, false)
             listServices.forEach {
                 order.services[it] = true
