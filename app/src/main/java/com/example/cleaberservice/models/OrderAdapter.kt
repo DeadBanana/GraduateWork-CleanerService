@@ -6,7 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.example.cleaberservice.R
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -14,6 +18,7 @@ import java.util.Locale
 
 class OrderAdapter(context: Context, private val orders: Map<String, Order>) : BaseAdapter() {
     private var keys =  orders.keys.toTypedArray()
+    private var selected: Int = -1
 
     fun updateKeys() {
         keys =  orders.keys.toTypedArray()
@@ -35,12 +40,13 @@ class OrderAdapter(context: Context, private val orders: Map<String, Order>) : B
         val view: View = convertView ?:
         LayoutInflater.from(parent.context).inflate(R.layout.list_order, parent, false)
 
-        val tvDate: TextView = view.findViewById(R.id.listOrderDate)
-        val tvAddress: TextView = view.findViewById(R.id.listOrderAddress)
-        val tvStatus: TextView = view.findViewById(R.id.listOrderStatus)
+        val tvDate: TextView = view.findViewById(R.id.listOrderTVDate)
+        val tvAddress: TextView = view.findViewById(R.id.listOrderTVDAddress)
+        val bAbout: Button = view.findViewById(R.id.listOrderBAbout)
+        val relativeLayout: RelativeLayout = view.findViewById(R.id.listOrderRelativeLayout)
+        val linearLayout: LinearLayout = view.findViewById(R.id.listOrderLinearLayout)
 
         val formatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-//        tvDate.text = formatter.format(getItem(position)?.date)
         val orderDateLong = getItem(position)?.date
         if (orderDateLong is Long) {
             val orderDate = Date(orderDateLong)
@@ -49,8 +55,26 @@ class OrderAdapter(context: Context, private val orders: Map<String, Order>) : B
             Log.d("MyLog", "Invalid date: $orderDateLong")
         }
         tvAddress.text = getItem(position)?.address
-        tvStatus.text = getItem(position)?.status.toString()
 
+        if(selected == position)
+            relativeLayout.visibility = View.VISIBLE
+        else
+            relativeLayout.visibility = View.GONE
+
+        linearLayout.setOnClickListener {
+            if(selected == position && relativeLayout.visibility == View.VISIBLE)
+                relativeLayout.visibility = View.GONE
+            else if(selected == position && relativeLayout.visibility == View.GONE)
+                relativeLayout.visibility = View.VISIBLE
+            else {
+                selected = position
+                this.notifyDataSetChanged()
+            }
+        }
+
+        bAbout.setOnClickListener {
+            Toast.makeText(view.context, "TODO", Toast.LENGTH_SHORT).show()
+        }
         return view
     }
 }

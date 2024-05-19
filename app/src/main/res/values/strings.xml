@@ -4,6 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="address">Адрес</string>
     <string name="description">Описание</string>
+    <string name="about">Подробнее</string>
     <string name="date">Дата</string>
     <string name="date_before">с</string>
     <string name="date_after">по</string>
@@ -22,8 +23,8 @@
     <string name="done">Готово</string>
     <string name="navigate_to_main_fragment">Перейти на главную</string>
     <string name="navigate_to_test_fragment">Перейти на тест</string>
-    <string name="navigate_to_history_fragment">Перейти в историю</string>
-    <string name="navigate_to_ordering_fragment">Перейти на создание заявки</string>
+    <string name="navigate_to_history_fragment">Перейти к истории</string>
+    <string name="navigate_to_ordering_fragment">Перейти к созданию заявки</string>
     <string name="title_main">Главное меню</string>
     <string name="title_test">Тест</string>
     <string name="title_history">История</string>
