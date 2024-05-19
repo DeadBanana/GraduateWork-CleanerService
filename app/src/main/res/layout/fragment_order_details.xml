@@ -10,7 +10,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp">
+        android:layout_marginBottom="115dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,14 +40,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/address"
+                    android:text="Адрес:"
                     android:textSize="30sp"/>
                 <TextView
                     android:id="@+id/OrderDetailsFragmentTVAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/address"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:layout_gravity="center"/>
             </LinearLayout>
 
             <LinearLayout
@@ -76,11 +80,16 @@
             </LinearLayout>
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Описание:"
+                android:textSize="30sp"/>
+            <TextView
                 android:id="@+id/OrderDetailsFragmentTVDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/description"
-                android:textSize="30sp"/>
+                android:textSize="18sp"/>
         </LinearLayout>
     </ScrollView>
 
