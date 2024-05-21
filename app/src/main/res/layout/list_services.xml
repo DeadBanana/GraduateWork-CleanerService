@@ -62,6 +62,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:text="@string/add"
+                    style="@style/DefaultButtonStyle"
                     android:textSize="21sp"
                     android:visibility="visible"/>
                 <Button
@@ -72,6 +73,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:text="@string/remove"
+                    style="@style/DefaultButtonStyle"
                     android:textSize="21sp"
                     android:visibility="gone"/>
             </androidx.constraintlayout.widget.ConstraintLayout>

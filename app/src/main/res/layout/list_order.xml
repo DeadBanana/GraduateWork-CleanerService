@@ -50,6 +50,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="@string/about"
+                style="@style/DefaultButtonStyle"
                 android:textSize="21sp"/>
         </RelativeLayout>
     </LinearLayout>

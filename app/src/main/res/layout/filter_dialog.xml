@@ -24,6 +24,7 @@
             android:id="@+id/filterDialogDateBefore"
             android:layout_width="125dp"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:focusable="false"
             android:clickable="true"/>
         <TextView
@@ -34,6 +35,7 @@
             android:id="@+id/filterDialogDateAfter"
             android:layout_width="125dp"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:focusable="false"
             android:clickable="true"/>
     </LinearLayout>

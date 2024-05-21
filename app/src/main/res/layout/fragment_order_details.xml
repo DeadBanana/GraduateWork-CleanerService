@@ -25,13 +25,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/date"
-                    android:textSize="30sp"/>
+                    android:textSize="25sp"
+                    android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/OrderDetailsFragmentTVDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/date"
-                    android:textSize="18sp"/>
+                    android:textSize="19sp"
+                    android:layout_gravity="center"/>
             </LinearLayout>
 
             <LinearLayout
@@ -41,13 +43,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Адрес:"
-                    android:textSize="30sp"/>
+                    android:textSize="25sp"
+                    android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/OrderDetailsFragmentTVAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/address"
-                    android:textSize="18sp"
+                    android:textSize="19dp"
                     android:layout_gravity="center"/>
             </LinearLayout>
 
@@ -58,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/client"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     android:layout_gravity="center"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -69,13 +72,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/name"
-                        android:textSize="18sp"/>
+                        android:textSize="19sp"/>
                     <TextView
                         android:id="@+id/OrderDetailsFragmentTVClientEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/email"
-                        android:textSize="18sp"/>
+                        android:textSize="19sp"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -83,13 +86,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Описание:"
-                android:textSize="30sp"/>
+                android:textSize="25sp"/>
             <TextView
                 android:id="@+id/OrderDetailsFragmentTVDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/description"
-                android:textSize="18sp"/>
+                android:textSize="19sp"/>
         </LinearLayout>
     </ScrollView>
 
@@ -99,6 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:text="@string/respond"
+        style="@style/DefaultButtonStyle"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

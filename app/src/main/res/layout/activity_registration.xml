@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="@string/name"
+            style="@style/DefaultEditTextStyle"
             android:inputType="text"
             android:textSize="21sp" />
 
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="@string/email"
+            style="@style/DefaultEditTextStyle"
             android:inputType="textEmailAddress"
             android:textSize="21sp" />
 
@@ -39,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="@string/password"
+            style="@style/DefaultEditTextStyle"
             android:inputType="textPassword"
             android:textSize="21sp" />
 
@@ -48,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="@string/rePass"
+            style="@style/DefaultEditTextStyle"
             android:inputType="textPassword"
             android:textSize="21sp" />
 
@@ -58,6 +62,7 @@
             android:layout_margin="5dp"
             android:onClick="BRegistrationClick"
             android:text="@string/register"
+            style="@style/DefaultButtonStyle"
             android:textSize="21sp" />
 
         <Button
@@ -67,6 +72,7 @@
             android:layout_margin="5dp"
             android:onClick="BLoginClick"
             android:text="@string/login"
+            style="@style/DefaultButtonStyle"
             android:textSize="21sp" />
     </LinearLayout>
 

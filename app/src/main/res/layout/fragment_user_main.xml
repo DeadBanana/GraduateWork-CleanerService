@@ -24,14 +24,16 @@
                 android:layout_height="65sp"
                 android:layout_margin="15dp"
                 android:text="@string/navigate_to_history_fragment"
-                android:textSize="21sp"/>
+                style="@style/DefaultButtonStyle"
+                android:textSize="20sp"/>
             <Button
                 android:id="@+id/UserMainFragmentBNavOrdering"
                 android:layout_width="350dp"
                 android:layout_height="65sp"
                 android:layout_margin="15dp"
                 android:text="@string/navigate_to_ordering_fragment"
-                android:textSize="21sp"/>
+                style="@style/DefaultButtonStyle"
+                android:textSize="20sp"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -36,9 +36,9 @@ class CleanerMainFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val filteredOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
-        sortedOrders.clear()
-        sortedOrders.putAll(filteredOrders)
+//        val filteredOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
+//        sortedOrders.clear()
+//        sortedOrders.putAll(filteredOrders)
         orderAdapter.updateKeys()
         orderAdapter.notifyDataSetChanged()
     }

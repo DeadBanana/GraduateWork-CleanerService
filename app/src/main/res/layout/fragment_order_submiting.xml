@@ -46,6 +46,7 @@
                 android:layout_width="350sp"
                 android:layout_height="wrap_content"
                 android:text="@string/services"
+                style="@style/DefaultButtonStyle"
                 android:textSize="21sp"
                 android:layout_margin="10dp"/>
             <Button
@@ -53,6 +54,7 @@
                 android:layout_width="350sp"
                 android:layout_height="wrap_content"
                 android:text="@string/done"
+                style="@style/DefaultButtonStyle"
                 android:textSize="21sp"
                 android:layout_margin="10dp"/>
         </LinearLayout>
