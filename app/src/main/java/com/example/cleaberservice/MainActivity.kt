@@ -9,7 +9,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.RelativeLayout
-import android.widget.TextView
 import android.widget.Toast
 import com.example.cleaberservice.activity.CleanerActivity
 import com.example.cleaberservice.activity.RegistrationActivity
@@ -17,8 +16,6 @@ import com.example.cleaberservice.activity.UserActivity
 import com.example.cleaberservice.models.DB
 import com.example.cleaberservice.models.User
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener

@@ -7,9 +7,9 @@
     tools:context=".fragments.CleanerMainFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/CleanerMainFragmentLVOrders"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

@@ -11,11 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.ListView
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
 import com.example.cleaberservice.models.OrderAdapter
@@ -31,12 +31,12 @@ class CleanerMainFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_cleaner_main, container, false)
     }
 
-    private val sortedOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
+    private val sortedOrders = DB.orders.filter { x -> x.value.visibility }.toMutableMap()
     private lateinit var orderAdapter: OrderAdapter
 
     override fun onResume() {
         super.onResume()
-//        val filteredOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
+//        val filteredOrders = DB.orders.filter { x -> x.value.visibility }.toMutableMap()
 //        sortedOrders.clear()
 //        sortedOrders.putAll(filteredOrders)
         orderAdapter.updateKeys()
@@ -46,13 +46,17 @@ class CleanerMainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fab: FloatingActionButton = view.findViewById(R.id.CleanerMainFragmentFBFilter)
-        val lvOrders = view.findViewById<ListView>(R.id.CleanerMainFragmentLVOrders)
+        val lvOrders = view.findViewById<RecyclerView>(R.id.CleanerMainFragmentLVOrders)
         val navController = NavHostFragment.findNavController(this)
 
-        var selectedDateBefore: Long = 631152000000 //01.01.1990
-        var selectedDateAfter: Long = 4733856000000 //01.01.2120
-        var selectedServiceId: String?
+        val defaultStartDate: Long = 631152000000 //01.01.1990
+        val defaultEndDate: Long = 4733856000000 //01.01.2120
+        var selectedDateBefore = defaultStartDate
+        var selectedDateAfter = defaultEndDate
+        var selectedServiceId: String? = null
         orderAdapter = OrderAdapter(view.context, sortedOrders, navController)
+        lvOrders.setHasFixedSize(true)
+        lvOrders.layoutManager = LinearLayoutManager(view.context)
         lvOrders.adapter = orderAdapter
 
         fab.setOnClickListener { _ ->
@@ -60,6 +64,18 @@ class CleanerMainFragment : Fragment() {
             val dateBefore = dialogView.findViewById<EditText>(R.id.filterDialogDateBefore)
             val dateAfter = dialogView.findViewById<EditText>(R.id.filterDialogDateAfter)
             val servicesSpinner = dialogView.findViewById<Spinner>(R.id.filterDialogServiceSpinner)
+
+            if(selectedDateBefore != defaultStartDate) {
+                val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                val formattedDate = format.format(selectedDateBefore)
+                dateBefore.setText(formattedDate)
+            }
+
+            if(selectedDateAfter != defaultEndDate) {
+                val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                val formattedDate = format.format(selectedDateAfter)
+                dateAfter.setText(formattedDate)
+            }
 
             dateBefore.setOnClickListener {
                 showDateDialog(view, dateBefore) { date ->
@@ -79,11 +95,18 @@ class CleanerMainFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             servicesSpinner.adapter = adapter
 
+            if(selectedServiceId != null) {
+                servicesSpinner.setSelection(services.indexOf(services.first { x -> x.id == selectedServiceId }) + 1)
+            }
+
             val alertDialog = AlertDialog.Builder(view.context)
                 .setView(dialogView)
                 .setTitle("Фильтр")
                 .setNegativeButton("Сбросить") {dialog, _ ->
-                    val filteredOrders = DB.orders.filter { x -> !x.value.status }.toMutableMap()
+                    val filteredOrders = DB.orders.filter { x -> x.value.visibility }.toMutableMap()
+                    selectedDateBefore = defaultStartDate
+                    selectedDateAfter = defaultEndDate
+                    selectedServiceId = null
                     sortedOrders.clear()
                     sortedOrders.putAll(filteredOrders)
                     orderAdapter.updateKeys()
@@ -100,7 +123,7 @@ class CleanerMainFragment : Fragment() {
                         (selectedServiceId == null || x.value.services[selectedServiceId] != null)
                                 && x.value.date >= selectedDateBefore
                                 && x.value.date <= selectedDateAfter
-                                && !x.value.status}.toMutableMap()
+                                && x.value.visibility}.toMutableMap()
                     sortedOrders.clear()
                     sortedOrders.putAll(filteredOrders)
                     orderAdapter.updateKeys()

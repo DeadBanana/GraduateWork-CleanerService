@@ -10,7 +10,6 @@ import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cleaberservice.MainActivity
 import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
 import com.example.cleaberservice.models.User

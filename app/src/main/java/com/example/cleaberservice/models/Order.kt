@@ -1,13 +1,13 @@
 package com.example.cleaberservice.models
 
 class Order(var id: String, var userId: String, var address: String, var date: Long,
-            var description: String, var status: Boolean) {
+            var description: String, var status: Boolean, var visibility: Boolean) {
     var services: MutableMap<String, Boolean> = mutableMapOf()
     var cleaners: MutableMap<String, Boolean> = mutableMapOf()
 
-    constructor() : this(ID, USERID, ADDRESS, 0, DESCRIPTION, false)
-    constructor(address: String, date: Long, description: String, status: Boolean) :
-            this (ID, USERID, address, date, description, status)
+    constructor() : this(ID, USERID, ADDRESS, 0, DESCRIPTION, false, true)
+    constructor(address: String, date: Long, description: String) :
+            this (ID, USERID, address, date, description, false, true)
 
     companion object PATH {
         const val ROOT = "Order"
@@ -19,5 +19,6 @@ class Order(var id: String, var userId: String, var address: String, var date: L
         const val STATUS = "status"
         const val SERVICES = "services"
         const val CLEANERS = "cleaners"
+        const val VISIBILITY = "visibility"
     }
 }

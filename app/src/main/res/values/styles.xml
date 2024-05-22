@@ -10,11 +10,13 @@
     <style name="DefaultButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/blue_button_style</item>
         <item name="android:textColor">@color/common_google_signin_btn_text_dark</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="RoundlessButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColor">@color/common_google_signin_btn_text_dark</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="DefaultEditTextStyle" parent="Widget.AppCompat.EditText">

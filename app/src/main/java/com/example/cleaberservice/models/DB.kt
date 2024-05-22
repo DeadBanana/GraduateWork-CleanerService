@@ -60,7 +60,8 @@ object DB {
                 "date" to order.date,
                 "description" to order.description,
                 "status" to order.status,
-                "services" to order.services
+                "services" to order.services,
+                "visibility" to order.visibility
             )
             val childUpdates = hashMapOf<String, Any>(
                 "/${Order.ROOT}/$key" to orderMap,

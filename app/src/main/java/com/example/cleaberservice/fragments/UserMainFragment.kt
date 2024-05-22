@@ -6,12 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.NavHostFragment
 import com.example.cleaberservice.R
-import com.example.cleaberservice.models.DB
-import com.example.cleaberservice.models.Order
-import java.util.Date
 
 class UserMainFragment : Fragment() {
 

@@ -5,7 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
 import com.example.cleaberservice.models.Order
@@ -20,7 +21,7 @@ class HistoryListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_history_list, container, false)
     }
 
-    lateinit var lvHistory: ListView
+    lateinit var lvHistory: RecyclerView
     lateinit var adapter: OrderAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,6 +32,8 @@ class HistoryListFragment : Fragment() {
             orders[it] = DB.orders[it]!!
         }
         adapter = OrderAdapter(view.context, orders, null)
+        lvHistory.setHasFixedSize(true)
+        lvHistory.layoutManager = LinearLayoutManager(view.context)
         lvHistory.adapter = adapter
     }
 }

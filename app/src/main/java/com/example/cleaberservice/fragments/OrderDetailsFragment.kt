@@ -14,7 +14,6 @@ import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
 import com.example.cleaberservice.models.Order
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 class OrderDetailsFragment : Fragment() {

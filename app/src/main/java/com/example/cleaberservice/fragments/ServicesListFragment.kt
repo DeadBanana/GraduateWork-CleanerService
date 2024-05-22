@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ListView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
 import com.example.cleaberservice.models.ServiceAdapter
@@ -28,11 +29,13 @@ class ServicesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val navController = NavHostFragment.findNavController(this)
         val bDone = view.findViewById<Button>(R.id.ServicesListFragmentBDone)
-        val lvServices = view.findViewById<ListView>(R.id.ServicesListFragmentLVServices)
+        val lvServices = view.findViewById<RecyclerView>(R.id.ServicesListFragmentLVServices)
         val adapter = ServiceAdapter(view.context, DB.services)
         viewModel.selectedItems.observe(viewLifecycleOwner) { items ->
             adapter.selectedServices = items
         }
+        lvServices.setHasFixedSize(true)
+        lvServices.layoutManager = LinearLayoutManager(view.context)
         lvServices.adapter = adapter
         bDone.setOnClickListener {
             viewModel.selectedItems.value = adapter.selectedServices

@@ -3,7 +3,6 @@ package com.example.cleaberservice.activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Layout.Directions
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
@@ -15,12 +14,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.cleaberservice.R
-import com.example.cleaberservice.fragments.HistoryListFragmentDirections
-import com.example.cleaberservice.fragments.UserMainFragmentDirections
 import com.example.cleaberservice.models.DB
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
 
 class UserActivity : AppCompatActivity() {
     private lateinit var navController: NavController

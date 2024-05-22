@@ -17,8 +17,6 @@ import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
 import com.example.cleaberservice.models.Order
 import com.example.cleaberservice.models.SharedViewModel
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.Locale
 
 class OrderSubmittingFragment : Fragment() {
@@ -64,6 +62,7 @@ class OrderSubmittingFragment : Fragment() {
                 val format = android.icu.text.SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
                 val formattedDate = format.format(date)
                 edDate.text = formattedDate
+                edDate.error = null
                 dateLong = date.time
                 Log.d("MyLog", "Selected date: $date")
             }
@@ -95,14 +94,6 @@ class OrderSubmittingFragment : Fragment() {
                 edDate.error = getString(R.string.ex_required)
                 isError = true
             }
-//            if(!date.matches(Regex("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)" +
-//                        "(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$|^(?:29(\\/|-|\\.)" +
-//                        "0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])" +
-//                        "|(?:(?:16|[2468][048]|[3579][26])00))))\$|^(?:0?[1-9]|1\\d|2[0-8])" +
-//                        "(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$"))) {
-//                edDate.error = getString(R.string.ex_date_format)
-//                isError = true
-//            }
             if(listServices.isEmpty()) {
                 bServices.error = getString(R.string.ex_required)
                 isError = true
@@ -111,18 +102,9 @@ class OrderSubmittingFragment : Fragment() {
             if(isError)
                 return@setOnClickListener
 
-//            val dateLong: Long
-//            try {
-//                val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-//                dateLong = format.parse(date)?.time ?: 0
-//            }
-//            catch (ex: ParseException) {
-//                edDate.error = getString(R.string.ex_date_format)
-//                return@setOnClickListener
-//            }
             if(description.isEmpty())
                 description = "Без описания"
-            val order = Order(address, dateLong, description, false)
+            val order = Order(address, dateLong, description)
             listServices.forEach {
                 order.services[it] = true
             }
