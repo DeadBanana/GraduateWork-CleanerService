@@ -1,6 +1,7 @@
 package com.example.cleaberservice.models
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +22,12 @@ import java.util.Locale
 class OrderAdapter(
     private val context: Context,
     private val orders: Map<String, Order>,
-    private val navController: NavController?
+    private val navController: NavController?,
+    private val visibility: Boolean
 ) : RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
+
+    constructor(context: Context, orders: Map<String, Order>, navController: NavController?) :
+            this(context, orders, navController, false)
 
     private var keys = orders.keys.toTypedArray()
     private var selected: Int = -1
@@ -71,15 +76,15 @@ class OrderAdapter(
 
         holder.bAbout.setOnClickListener {
             if(navController != null) {
-                val bundle = bundleOf("orderId" to order?.id)
-                when(DB.users[DB.auth.currentUser!!.uid]!!.role) {
-                    1 -> {
-                        navController.navigate(R.id.orderDetailsFragment, bundle)
-                    }
-                    else -> {
-                        Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
-                    }
-                }
+                val role = DB.users[DB.auth.currentUser!!.uid]!!.role
+                val bundle = Bundle()
+                bundle.putString("orderId", order?.id)
+                bundle.putInt("role", role)
+                bundle.putBoolean("visibility", visibility)
+                if(role == 1)
+                    navController.navigate(R.id.orderDetailsFragment, bundle)
+                else
+                    navController.navigate(R.id.orderDetailsFragment2, bundle)
             }
         }
     }

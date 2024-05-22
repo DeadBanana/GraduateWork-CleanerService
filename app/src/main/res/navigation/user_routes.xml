@@ -10,23 +10,11 @@
         android:label="@string/title_main"
         tools:layout="@layout/fragment_user_main" >
         <action
-            android:id="@+id/action_userMainFragment_to_userTestFragment"
-            app:destination="@id/userTestFragment" />
-        <action
             android:id="@+id/action_userMainFragment_to_historyListFragment"
             app:destination="@id/historyListFragment" />
         <action
             android:id="@+id/action_userMainFragment_to_orderSubmittingFragment"
             app:destination="@id/orderSubmittingFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/userTestFragment"
-        android:name="com.example.cleaberservice.fragments.UserTestFragment"
-        android:label="@string/title_test"
-        tools:layout="@layout/fragment_user_test">
-        <action
-            android:id="@+id/action_userTestFragment_to_userMainFragment"
-            app:destination="@id/userMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/historyListFragment"
@@ -36,6 +24,9 @@
         <action
             android:id="@+id/action_historyListFragment_to_userMainFragment"
             app:destination="@id/userMainFragment" />
+        <action
+            android:id="@+id/action_historyListFragment_to_orderDetailsFragment2"
+            app:destination="@id/orderDetailsFragment2" />
     </fragment>
     <fragment
         android:id="@+id/orderSubmittingFragment"
@@ -57,5 +48,14 @@
         <action
             android:id="@+id/action_servicesListFragment_to_orderSubmittingFragment"
             app:destination="@id/orderSubmittingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment2"
+        android:name="com.example.cleaberservice.fragments.OrderDetailsFragment"
+        android:label="@string/title_order_details"
+        tools:layout="@layout/fragment_order_details" >
+        <action
+            android:id="@+id/action_orderDetailsFragment2_to_historyListFragment"
+            app:destination="@id/historyListFragment" />
     </fragment>
 </navigation>

@@ -33,19 +33,18 @@ class UserActivity : AppCompatActivity() {
             as NavHostFragment? ?: return
         navController = host.navController
         navView.setupWithNavController(navController)
-//        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.userMainFragment,
-            R.id.userTestFragment,
-            R.id.historyListFragment,
-            R.id.orderSubmittingFragment
-        ), drawerLayout)
+        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+//        appBarConfiguration = AppBarConfiguration(setOf(
+//            R.id.userMainFragment,
+//            R.id.historyListFragment,
+//            R.id.orderSubmittingFragment
+//        ), drawerLayout)
         val toolbar = findViewById<Toolbar>(R.id.UserActivityToolbar)
         toolbar.title = navController.currentDestination?.label
         setSupportActionBar(toolbar)
         toolbar.setupWithNavController(navController, appBarConfiguration)
         if(!DB.auth.currentUser!!.isEmailVerified) {
-            navView.menu.findItem(R.id.userTestFragment).isVisible = false
+//            navView.menu.findItem(R.id.userTestFragment).isVisible = false
         }
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -55,12 +54,12 @@ class UserActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.userTestFragment -> {
-                    val bundle = bundleOf("uId" to DB.auth.currentUser!!.uid)
-                    navController.navigate(menuItem.itemId, bundle)
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                    true
-                }
+//                R.id.userTestFragment -> {
+//                    val bundle = bundleOf("uId" to DB.auth.currentUser!!.uid)
+//                    navController.navigate(menuItem.itemId, bundle)
+//                    drawerLayout.closeDrawer(GravityCompat.START)
+//                    true
+//                }
 
                 R.id.historyListFragment -> {
                     navController.navigate(menuItem.itemId)

@@ -24,12 +24,14 @@
     <string name="remove">Убрать</string>
     <string name="done">Готово</string>
     <string name="client">Заказчик:</string>
+    <string name="cleaner">Клинер:</string>
     <string name="respond">Откликнуться</string>
     <!-- Navigation strings -->
     <string name="navigate_to_main_fragment">Перейти на главную</string>
     <string name="navigate_to_test_fragment">Перейти на тест</string>
     <string name="navigate_to_history_fragment">Перейти к истории</string>
     <string name="navigate_to_ordering_fragment">Перейти к созданию заявки</string>
+    <string name="navigate_to_orders_list">Перейти к списку заявок</string>
     <!-- Title strings -->
     <string name="title_main">Главное меню</string>
     <string name="title_test">Тест</string>
@@ -37,9 +39,10 @@
     <string name="title_ordering">Оформление заявки</string>
     <string name="title_services">Список услуг</string>
     <string name="title_order_details">Описание</string>
+    <string name="title_orders">Список заявок</string>
     <!-- Exception strings -->
     <string name="ex_required">Обязательное поле</string>
-    <string name="ex_password">Длина пароля должна быть больше 6</string>
+    <string name="ex_password">Длина пароля должна быть больше 6 символов</string>
     <string name="ex_rep_password">Пароль не совпал</string>
     <string name="ex_date_format">Неверный формат даты (дд.мм.гггг)</string>
     <!-- Message strings -->

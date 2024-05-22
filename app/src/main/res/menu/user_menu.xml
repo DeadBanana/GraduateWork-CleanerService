@@ -4,9 +4,6 @@
         android:id="@+id/userMainFragment"
         android:title="@string/title_main"/>
     <item
-        android:id="@+id/userTestFragment"
-        android:title="@string/title_test"/>
-    <item
         android:id="@+id/historyListFragment"
         android:title="@string/title_history"/>
     <item

@@ -11,8 +11,11 @@
         android:label="@string/title_main"
         tools:layout="@layout/fragment_cleaner_main" >
         <action
-            android:id="@+id/action_cleanerMainFragment_to_orderDetailsFragment"
-            app:destination="@id/orderDetailsFragment" />
+            android:id="@+id/action_cleanerMainFragment_to_historyListFragment2"
+            app:destination="@id/historyListFragment2" />
+        <action
+            android:id="@+id/action_cleanerMainFragment_to_cleanerOrdersList"
+            app:destination="@id/cleanerOrdersList" />
     </fragment>
     <fragment
         android:id="@+id/orderDetailsFragment"
@@ -20,10 +23,34 @@
         android:label="@string/title_order_details"
         tools:layout="@layout/fragment_order_details" >
         <action
-            android:id="@+id/action_orderDetailsFragment_to_cleanerMainFragment"
+            android:id="@+id/action_orderDetailsFragment_to_historyListFragment2"
+            app:destination="@id/historyListFragment2" />
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_cleanerOrdersList"
+            app:destination="@id/cleanerOrdersList" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyListFragment2"
+        android:name="com.example.cleaberservice.fragments.HistoryListFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history_list" >
+        <action
+            android:id="@+id/action_historyListFragment2_to_cleanerMainFragment"
             app:destination="@id/cleanerMainFragment" />
         <action
-            android:id="@+id/action_orderDetailsFragment_to_cleanerMainFragment2"
+            android:id="@+id/action_historyListFragment2_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cleanerOrdersList"
+        android:name="com.example.cleaberservice.fragments.CleanerOrdersList"
+        android:label="@string/title_orders"
+        tools:layout="@layout/fragment_cleaner_orders_list" >
+        <action
+            android:id="@+id/action_cleanerOrdersList_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+        <action
+            android:id="@+id/action_cleanerOrdersList_to_cleanerMainFragment"
             app:destination="@id/cleanerMainFragment" />
     </fragment>
 </navigation>

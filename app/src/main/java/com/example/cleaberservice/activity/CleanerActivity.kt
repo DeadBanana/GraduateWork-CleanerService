@@ -47,36 +47,22 @@ class CleanerActivity : AppCompatActivity() {
 //        if(!DB.auth.currentUser!!.isEmailVerified) {
 //            navView.menu.findItem(R.id.userTestFragment).isVisible = false
 //        }
-//        navView.setNavigationItemSelectedListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.userMainFragment -> {
-//                    navController.navigate(menuItem.itemId)
-//                    drawerLayout.closeDrawer(GravityCompat.START)
-//                    true
-//                }
-//
-//                R.id.userTestFragment -> {
-//                    val bundle = bundleOf("uId" to DB.auth.currentUser!!.uid)
-//                    navController.navigate(menuItem.itemId, bundle)
-//                    drawerLayout.closeDrawer(GravityCompat.START)
-//                    true
-//                }
-//
-//                R.id.historyListFragment -> {
-//                    navController.navigate(menuItem.itemId)
-//                    drawerLayout.closeDrawer(GravityCompat.START)
-//                    true
-//                }
-//
-//                R.id.orderSubmittingFragment -> {
-//                    navController.navigate(menuItem.itemId)
-//                    drawerLayout.closeDrawer(GravityCompat.START)
-//                    true
-//                }
-//
-//                else -> false
-//            }
-//        }
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.historyListFragment2 -> {
+                    navController.navigate(menuItem.itemId)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+
+                R.id.cleanerOrdersList -> {
+                    navController.navigate(menuItem.itemId)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                else -> false
+            }
+        }
         val bBack = findViewById<Button>(R.id.CleanerActivityBBack)
         bBack.setOnClickListener {
             DB.auth.signOut()

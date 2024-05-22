@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
@@ -31,15 +32,37 @@ class OrderDetailsFragment : Fragment() {
 
         val tvDate: TextView = view.findViewById(R.id.OrderDetailsFragmentTVDate)
         val tvAddress: TextView = view.findViewById(R.id.OrderDetailsFragmentTVAddress)
+        val tvUserRole: TextView = view.findViewById(R.id.OrderDetailsFragmentTVUserRole)
         val tvClientName: TextView = view.findViewById(R.id.OrderDetailsFragmentTVClientName)
         val tvClientEmail: TextView = view.findViewById(R.id.OrderDetailsFragmentTVClientEmail)
         val tvDescription: TextView = view.findViewById(R.id.OrderDetailsFragmentTVDescription)
         val bRespond: Button = view.findViewById(R.id.OrderDetailsFragmentBRespond)
+        val llRole: LinearLayout = view.findViewById(R.id.OrderDetailsFragmentLLUserRole)
 
         lateinit var contextOrder: Order
         val orderId = arguments?.getString("orderId")
         if(orderId != null)
             contextOrder = DB.orders[orderId]!!
+        val role = arguments?.getInt("role")
+        if(role != null) {
+            when(role) {
+                0 -> {
+                    tvUserRole.text = getString(R.string.cleaner)
+                    if(DB.orders[orderId]!!.cleaners.isNotEmpty()) {
+                        val cleanerId = DB.orders[orderId]!!.cleaners.entries.first { x -> x.value }.key
+                        tvClientName.text = DB.users[cleanerId]!!.name
+                        tvClientEmail.text = DB.users[cleanerId]!!.email
+                    }
+                    else
+                        llRole.visibility = View.GONE
+                }
+            }
+        }
+        val visibility = arguments?.getBoolean("visibility")
+        if(visibility != null) {
+            if(!visibility)
+                bRespond.visibility = View.GONE
+        }
 
         val formatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
         tvDate.text = formatter.format(contextOrder.date)
