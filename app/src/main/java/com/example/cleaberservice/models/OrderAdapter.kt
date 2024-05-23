@@ -64,10 +64,10 @@ class OrderAdapter(
             holder.relativeLayout.visibility = View.GONE
 
         holder.linearLayout.setOnClickListener {
-            if(selected == holder.adapterPosition && holder.relativeLayout.visibility == View.VISIBLE)
+            if(selected == holder.adapterPosition && holder.relativeLayout.visibility == View.VISIBLE) {
                 holder.relativeLayout.visibility = View.GONE
-            else if(selected == holder.adapterPosition && holder.relativeLayout.visibility == View.GONE)
-                holder.relativeLayout.visibility = View.VISIBLE
+                selected = -1
+            }
             else {
                 selected = holder.adapterPosition
                 notifyDataSetChanged()

@@ -1,5 +1,11 @@
 package com.example.cleaberservice.fragments
 
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.widget.ImageView
+import com.example.cleaberservice.models.ImageUtils
+
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
@@ -27,6 +33,38 @@ class OrderSubmittingFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_order_submiting, container, false)
     }
+
+//    private lateinit var inImage: ImageView
+//    private var photoUri: Uri? = null
+//    private val CAMERA_CAPTURE_REQUEST = 1
+//
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        ImageUtils.handleCameraPermissionResult(requestCode, grantResults) {
+//            photoUri = ImageUtils.takeImage(this, CAMERA_CAPTURE_REQUEST)
+//        }
+//    }
+//
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        ImageUtils.handleImageCaptureResult(requestCode, resultCode, data, CAMERA_CAPTURE_REQUEST) { uri ->
+//            uri?.let {
+//                val bitmap = BitmapFactory.decodeFile(ImageUtils.getCurrentPhotoPath())
+//                imImage.setImageBitmap(bitmap)
+//            }
+//        }
+//    }
+//
+//    fun takeImage() {
+//        if (ImageUtils.isCameraPermissionGranted(requireContext())) {
+//            photoUri = ImageUtils.takeImage(this, CAMERA_CAPTURE_REQUEST)
+//        } else {
+//            ImageUtils.requestCameraPermission(this)
+//        }
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -21,7 +21,7 @@
 
     <style name="DefaultEditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:background">@drawable/edit_text_background</item>
-        <item name="android:minHeight">45sp</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:minHeight">50sp</item>
+        <item name="android:padding">8dp</item>
     </style>
 </resources>

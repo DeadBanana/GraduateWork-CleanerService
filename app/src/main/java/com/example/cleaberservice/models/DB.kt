@@ -1,5 +1,6 @@
 package com.example.cleaberservice.models
 
+import android.graphics.Bitmap
 import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -9,10 +10,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.storage
+import java.io.ByteArrayOutputStream
 import kotlin.math.log
 
 object DB {
     val database = FirebaseDatabase.getInstance("https://cleanerservice-be312-default-rtdb.europe-west1.firebasedatabase.app/")
+    val storage = Firebase.storage
+    val storageRef = storage.reference
     var users: MutableMap<String, User> = mutableMapOf()
     var services: MutableMap<String, Service> = mutableMapOf()
     var orders: MutableMap<String, Order> = mutableMapOf()
@@ -68,6 +73,54 @@ object DB {
                 "/${User.ROOT}/$userId/${User.ORDERS}/$key" to true
             )
             database.reference.updateChildren(childUpdates)
+        }
+    }
+
+    fun addPhotosToOrder(order: Order, bitmaps: MutableList<Bitmap>) {
+        val user = users[auth.currentUser!!.uid]
+        user?.let {
+            uploadImagesToFirebaseStorage(bitmaps, order.id, user.role) { photoUrls ->
+                if (photoUrls != null) {
+                    order.photos[user.role] = photoUrls
+                    val orderRef = database.getReference("${Order.ROOT}/${order.id}/${Order.PHOTOS}/${user.role}")
+                    orderRef.setValue(photoUrls)
+                } else {
+                    Log.d("MyLog", "Error uploading images")
+                }
+            }
+        } ?: run {
+            Log.d("MyLog", "User not found")
+        }
+    }
+
+    private fun uploadImagesToFirebaseStorage(bitmaps: MutableList<Bitmap>, orderId: String, role: Int, onComplete: (List<String>?) -> Unit) {
+        val urls = mutableListOf<String>()
+        var uploadCount = 0
+
+        bitmaps.forEachIndexed { index, bitmap ->
+            val imageRef = storageRef.child("order_images/$orderId/$role/$index.jpg")
+
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
+
+            val uploadTask = imageRef.putBytes(data)
+            uploadTask.addOnFailureListener {
+                // Handle unsuccessful uploads
+                onComplete(null)
+                return@addOnFailureListener
+            }.addOnSuccessListener { taskSnapshot ->
+                imageRef.downloadUrl.addOnSuccessListener { uri ->
+                    urls.add(uri.toString())
+                    uploadCount++
+                    if (uploadCount == bitmaps.size) {
+                        onComplete(urls)
+                    }
+                }.addOnFailureListener {
+                    onComplete(null)
+                    return@addOnFailureListener
+                }
+            }
         }
     }
 
