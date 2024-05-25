@@ -186,8 +186,8 @@ class OrderSubmittingFragment : Fragment() {
                 order.services[it] = true
             }
             DB.addOrder(order)
-//            if(currentBitmaps.isNotEmpty())
-//                DB.addPhotosToOrder(order, bitmaps)
+            if(currentBitmaps.isNotEmpty())
+                DB.addPhotosToOrder(order, bitmaps)
             viewModel.selectedItems.value?.clear()
             Toast.makeText(view.context, R.string.msg_success, Toast.LENGTH_SHORT).show()
             navController.popBackStack()

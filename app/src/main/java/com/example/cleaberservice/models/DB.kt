@@ -82,12 +82,12 @@ object DB {
         user?.let {
             uploadImagesToFirebaseStorage(bitmaps, order.id, user.role) { photoUrls ->
                 if (photoUrls != null) {
-                    val urlsToMap = mutableMapOf<String, Boolean>()
-                    photoUrls.forEach {
-                        urlsToMap[it] = true
+                    val urlsToMap = mutableMapOf<String, String>()
+                    photoUrls.forEachIndexed { index, s ->
+                        urlsToMap["photo $index"] = s
                     }
                     order.photos[user.role.toString()] = urlsToMap
-                    val orderRef = database.getReference("${Order.ROOT}/${order.id}/${Order.PHOTOS}/${user.role}")
+                    val orderRef = database.getReference("${Order.ROOT}/${order.id}/${Order.PHOTOS}/role ${user.role}")
                     orderRef.setValue(urlsToMap)
                 } else {
                     Log.d("MyLog", "Error uploading images<DataBase>")
