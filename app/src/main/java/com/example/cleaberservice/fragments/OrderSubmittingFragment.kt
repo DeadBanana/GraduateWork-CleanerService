@@ -5,8 +5,8 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.widget.ImageView
 import com.example.cleaberservice.models.ImageUtils
-
 import android.app.DatePickerDialog
+import android.graphics.Bitmap
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -26,6 +27,13 @@ import com.example.cleaberservice.models.SharedViewModel
 import java.util.Locale
 
 class OrderSubmittingFragment : Fragment() {
+
+    private lateinit var imageContainer: LinearLayout
+    private lateinit var addPhoto: LinearLayout
+    private val bitmaps = mutableListOf<Bitmap>()
+    private val currentBitmaps = mutableListOf<Bitmap>()
+    private var photoUri: Uri? = null
+    private val CAMERA_CAPTURE_REQUEST = 1
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,37 +42,61 @@ class OrderSubmittingFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_order_submiting, container, false)
     }
 
-//    private lateinit var inImage: ImageView
-//    private var photoUri: Uri? = null
-//    private val CAMERA_CAPTURE_REQUEST = 1
-//
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        ImageUtils.handleCameraPermissionResult(requestCode, grantResults) {
-//            photoUri = ImageUtils.takeImage(this, CAMERA_CAPTURE_REQUEST)
-//        }
-//    }
-//
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        ImageUtils.handleImageCaptureResult(requestCode, resultCode, data, CAMERA_CAPTURE_REQUEST) { uri ->
-//            uri?.let {
-//                val bitmap = BitmapFactory.decodeFile(ImageUtils.getCurrentPhotoPath())
-//                imImage.setImageBitmap(bitmap)
-//            }
-//        }
-//    }
-//
-//    fun takeImage() {
-//        if (ImageUtils.isCameraPermissionGranted(requireContext())) {
-//            photoUri = ImageUtils.takeImage(this, CAMERA_CAPTURE_REQUEST)
-//        } else {
-//            ImageUtils.requestCameraPermission(this)
-//        }
-//    }
+    override fun onResume() {
+        super.onResume()
+        bitmaps.forEach {
+            addImageToContainer(it)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        ImageUtils.handleCameraPermissionResult(requestCode, grantResults) {
+            photoUri = ImageUtils.takeImage(this, CAMERA_CAPTURE_REQUEST)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        ImageUtils.handleImageCaptureResult(requestCode, resultCode, data, CAMERA_CAPTURE_REQUEST) { uri ->
+            uri?.let {
+                val bitmap = BitmapFactory.decodeFile(ImageUtils.getCurrentPhotoPath())
+                bitmaps.add(bitmap)
+//                addImageToContainer(bitmap)
+            }
+        }
+    }
+
+    fun takeImage() {
+        if (ImageUtils.isCameraPermissionGranted(requireContext())) {
+            photoUri = ImageUtils.takeImage(this, CAMERA_CAPTURE_REQUEST)
+        } else {
+            ImageUtils.requestCameraPermission(this)
+        }
+    }
+
+    private fun addImageToContainer(bitmap: Bitmap) {
+        if(!currentBitmaps.contains(bitmap)) {
+            val imageView = ImageView(requireContext()).apply {
+                layoutParams = LinearLayout.LayoutParams(140.dpToPx(), 140.dpToPx()).apply {
+                    marginEnd = 8.dpToPx()
+                }
+                setImageBitmap(bitmap)
+                scaleType = ImageView.ScaleType.CENTER_CROP
+                background = resources.getDrawable(R.drawable.image_container_background, null)
+            }
+            imageContainer.addView(imageView, imageContainer.childCount - 1)
+            currentBitmaps.add(bitmap)
+        }
+    }
+
+    // Функция расширения для преобразования dp в пиксели
+    private fun Int.dpToPx(): Int {
+        return (this * resources.displayMetrics.density).toInt()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,6 +107,12 @@ class OrderSubmittingFragment : Fragment() {
         val edDescription = view.findViewById<TextView>(R.id.OrderSubmittingFragmentEDDescription)
         val bServices = view.findViewById<Button>(R.id.OrderSubmittingFragmentBServices)
         val bDone = view.findViewById<Button>(R.id.OrderSubmittingFragmentBSubmit)
+        imageContainer = view.findViewById(R.id.OrderSubmittingFragmentLLImageContainer)
+        addPhoto = view.findViewById(R.id.OrderSubmittingFragmentLLAddPhoto)
+
+        addPhoto.setOnClickListener {
+            takeImage()
+        }
 
         var listServices = arrayListOf<String>()
         var dateLong: Long = Calendar.getInstance().time.time
@@ -114,6 +152,7 @@ class OrderSubmittingFragment : Fragment() {
             val fragment = ServicesListFragment().apply {
                 arguments = bundle
             }
+            currentBitmaps.clear()
             navController.navigate(R.id.action_orderSubmittingFragment_to_servicesListFragment, bundle)
         }
 
@@ -147,6 +186,8 @@ class OrderSubmittingFragment : Fragment() {
                 order.services[it] = true
             }
             DB.addOrder(order)
+//            if(currentBitmaps.isNotEmpty())
+//                DB.addPhotosToOrder(order, bitmaps)
             viewModel.selectedItems.value?.clear()
             Toast.makeText(view.context, R.string.msg_success, Toast.LENGTH_SHORT).show()
             navController.popBackStack()

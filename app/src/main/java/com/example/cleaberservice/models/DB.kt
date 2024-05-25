@@ -73,6 +73,7 @@ object DB {
                 "/${User.ROOT}/$userId/${User.ORDERS}/$key" to true
             )
             database.reference.updateChildren(childUpdates)
+            order.id = key
         }
     }
 
@@ -81,15 +82,19 @@ object DB {
         user?.let {
             uploadImagesToFirebaseStorage(bitmaps, order.id, user.role) { photoUrls ->
                 if (photoUrls != null) {
-                    order.photos[user.role] = photoUrls
+                    val urlsToMap = mutableMapOf<String, Boolean>()
+                    photoUrls.forEach {
+                        urlsToMap[it] = true
+                    }
+                    order.photos[user.role.toString()] = urlsToMap
                     val orderRef = database.getReference("${Order.ROOT}/${order.id}/${Order.PHOTOS}/${user.role}")
-                    orderRef.setValue(photoUrls)
+                    orderRef.setValue(urlsToMap)
                 } else {
-                    Log.d("MyLog", "Error uploading images")
+                    Log.d("MyLog", "Error uploading images<DataBase>")
                 }
             }
         } ?: run {
-            Log.d("MyLog", "User not found")
+            Log.d("MyLog", "User not found<DataBase>")
         }
     }
 
@@ -98,7 +103,7 @@ object DB {
         var uploadCount = 0
 
         bitmaps.forEachIndexed { index, bitmap ->
-            val imageRef = storageRef.child("order_images/$orderId/$role/$index.jpg")
+            val imageRef = storageRef.child("order_images/${orderId}/${role}/${index}.jpg")
 
             val baos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
@@ -107,6 +112,7 @@ object DB {
             val uploadTask = imageRef.putBytes(data)
             uploadTask.addOnFailureListener {
                 // Handle unsuccessful uploads
+                Log.d("MyLog","unsuccessful upload<DataBase>", it)
                 onComplete(null)
                 return@addOnFailureListener
             }.addOnSuccessListener { taskSnapshot ->
@@ -135,7 +141,7 @@ object DB {
             }
             else {
                 val childUpdates = hashMapOf<String, Any>(
-                    "/${Order.ROOT}/${order.id}/${Order.STATUS}" to true,
+                    "/${Order.ROOT}/${order.id}/${Order.VISIBILITY}" to false,
                     "/${User.ROOT}/${user.id}/${User.ORDERS}/${order.id}" to true,
                     "/${Order.ROOT}/${order.id}/${Order.CLEANERS}/${user.id}" to true
                 )

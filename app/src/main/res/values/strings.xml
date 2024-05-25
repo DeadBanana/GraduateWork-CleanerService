@@ -21,6 +21,7 @@
     <string name="logout">Выйти</string>
     <string name="register">Регистрация</string>
     <string name="add">Добавить</string>
+    <string name="add_photo">Добавить фото</string>
     <string name="remove">Убрать</string>
     <string name="done">Готово</string>
     <string name="client">Заказчик:</string>
