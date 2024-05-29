@@ -84,10 +84,10 @@ object DB {
                 if (photoUrls != null) {
                     val urlsToMap = mutableMapOf<String, String>()
                     photoUrls.forEachIndexed { index, s ->
-                        urlsToMap["photo $index"] = s
+                        urlsToMap["${Order.PHOTOS}$index"] = s
                     }
                     order.photos[user.role.toString()] = urlsToMap
-                    val orderRef = database.getReference("${Order.ROOT}/${order.id}/${Order.PHOTOS}/role ${user.role}")
+                    val orderRef = database.getReference("${Order.ROOT}/${order.id}/${Order.PHOTOS}/${User.ROLE}${user.role}")
                     orderRef.setValue(urlsToMap)
                 } else {
                     Log.d("MyLog", "Error uploading images<DataBase>")
@@ -106,7 +106,7 @@ object DB {
             val imageRef = storageRef.child("order_images/${orderId}/${role}/${index}.jpg")
 
             val baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 75, baos)
             val data = baos.toByteArray()
 
             val uploadTask = imageRef.putBytes(data)

@@ -85,6 +85,41 @@
                 </LinearLayout>
             </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/OrderDetailsFragmentLLImageViewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Фотографии:"
+                android:textSize="20sp"
+                android:textColor="@color/pure_gray"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/linear_layout_transparent_style">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/OrderDetailsFragmentLLImageContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/image_container_background"
+                        android:padding="8dp"
+                        android:minHeight="50sp">
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+        </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
