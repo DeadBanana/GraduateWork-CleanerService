@@ -31,7 +31,8 @@ class HistoryListFragment : Fragment() {
         lvHistory = view.findViewById(R.id.HistoryListFragmentLVHistory)
         val orders: MutableMap<String, Order> = mutableMapOf()
         DB.users[DB.auth.currentUser!!.uid]!!.orders.keys.forEach {
-            orders[it] = DB.orders[it]!!
+            if(DB.orders[it]?.status == true)
+                orders[it] = DB.orders[it]!!
         }
         adapter = OrderAdapter(view.context, orders, navController)
         lvHistory.setHasFixedSize(true)

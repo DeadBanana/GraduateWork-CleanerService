@@ -14,8 +14,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
 
-<!--    app:layout_constrainedHeight="true"-->
+    <TextView
+        android:id="@+id/historyListFragmentTVMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/pure_gray"
+        android:text="@string/ex_no_completed_order"/>
 
 </FrameLayout>

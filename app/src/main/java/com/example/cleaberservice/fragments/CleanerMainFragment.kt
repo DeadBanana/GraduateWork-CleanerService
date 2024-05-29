@@ -12,13 +12,16 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
+import com.example.cleaberservice.models.Order
 import com.example.cleaberservice.models.OrderAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.Locale
@@ -32,20 +35,33 @@ class CleanerMainFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_cleaner_main, container, false)
     }
 
+    private lateinit var adapter: OrderAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val navController = NavHostFragment.findNavController(this)
 
+        val constraint = view.findViewById<LinearLayout>(R.id.CleanerMainFragmentLLViewContainer)
+        val orders = view.findViewById<RecyclerView>(R.id.CleanerMainFragmentRVOrders)
         val bOrdersList = view.findViewById<Button>(R.id.CleanerMainFragmentBNavOrders)
-        val bHistory = view.findViewById<Button>(R.id.CleanerMainFragmentBNavHistory)
+
+        orders.setHasFixedSize(true)
+        orders.layoutManager = LinearLayoutManager(view.context)
+
+        val activeOrdersList: MutableMap<String, Order> = mutableMapOf()
+        DB.users[DB.auth.currentUser!!.uid]!!.orders.keys.forEach {
+            if(DB.orders[it]?.status == false)
+                activeOrdersList[it] = DB.orders[it]!!
+        }
+        adapter = OrderAdapter(requireContext(), activeOrdersList, navController)
+        orders.adapter = adapter
+        if(activeOrdersList.isNotEmpty()) {
+            constraint.visibility = View.GONE
+            orders.visibility = View.VISIBLE
+        }
 
         bOrdersList.setOnClickListener {
             navController.navigate(R.id.cleanerOrdersList)
-        }
-
-        bHistory.setOnClickListener {
-            navController.navigate(R.id.historyListFragment2)
         }
     }
 }

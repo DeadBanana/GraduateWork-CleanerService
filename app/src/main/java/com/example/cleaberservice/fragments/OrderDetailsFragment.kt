@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
@@ -36,6 +38,7 @@ class OrderDetailsFragment : Fragment() {
         val tvClientName: TextView = view.findViewById(R.id.OrderDetailsFragmentTVClientName)
         val tvClientEmail: TextView = view.findViewById(R.id.OrderDetailsFragmentTVClientEmail)
         val tvDescription: TextView = view.findViewById(R.id.OrderDetailsFragmentTVDescription)
+        val lvServices: ListView = view.findViewById(R.id.OrderDetailsFragmentLVServices)
         val bRespond: Button = view.findViewById(R.id.OrderDetailsFragmentBRespond)
         val llRole: LinearLayout = view.findViewById(R.id.OrderDetailsFragmentLLUserRole)
 
@@ -43,6 +46,20 @@ class OrderDetailsFragment : Fragment() {
         val orderId = arguments?.getString("orderId")
         if(orderId != null)
             contextOrder = DB.orders[orderId]!!
+
+        val formatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        tvDate.text = formatter.format(contextOrder.date)
+        tvAddress.text = contextOrder.address
+        tvClientName.text = DB.users[contextOrder.userId]!!.name
+        tvClientEmail.text = DB.users[contextOrder.userId]!!.email
+        tvDescription.text = contextOrder.description
+        val servicesName = mutableListOf<String>()
+        contextOrder.services.keys.forEach {
+            servicesName.add(DB.services[it]!!.name)
+        }
+        val servicesAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, servicesName)
+        lvServices.adapter = servicesAdapter
+
         val role = arguments?.getInt("role")
         if(role != null) {
             when(role) {
@@ -64,12 +81,6 @@ class OrderDetailsFragment : Fragment() {
                 bRespond.visibility = View.GONE
         }
 
-        val formatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-        tvDate.text = formatter.format(contextOrder.date)
-        tvAddress.text = contextOrder.address
-        tvClientName.text = DB.users[contextOrder.userId]!!.name
-        tvClientEmail.text = DB.users[contextOrder.userId]!!.email
-        tvDescription.text = contextOrder.description
 
         bRespond.setOnClickListener {
             DB.confirmOrder(contextOrder)

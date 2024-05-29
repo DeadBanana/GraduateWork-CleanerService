@@ -25,6 +25,15 @@ DialogFragment() {
         delegate = function
     }
 
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.let {
+            val width = (resources.displayMetrics.widthPixels * 0.98).toInt()
+            val height = (resources.displayMetrics.heightPixels * 0.85).toInt()
+            it.setLayout(width, height)
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.dialog_image, container, false)
         val viewPager = view.findViewById<ViewPager>(R.id.dialog_view_pager)

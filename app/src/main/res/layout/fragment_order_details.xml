@@ -10,10 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="115dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp">
+        android:layout_margin="15dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,14 +22,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/date"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
+                    android:textColor="@color/pure_gray"
                     android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/OrderDetailsFragmentTVDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/date"
-                    android:textSize="19sp"
+                    android:textSize="20sp"
                     android:layout_gravity="center"/>
             </LinearLayout>
 
@@ -43,14 +41,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Адрес:"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
+                    android:textColor="@color/pure_gray"
                     android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/OrderDetailsFragmentTVAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/address"
-                    android:textSize="19dp"
+                    android:textSize="20sp"
                     android:layout_gravity="center"/>
             </LinearLayout>
 
@@ -63,8 +62,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/client"
-                    android:textSize="25sp"
-                    android:layout_gravity="center"/>
+                    android:textSize="20sp"
+                    android:textColor="@color/pure_gray"
+                    android:layout_gravity="top"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,13 +74,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/name"
-                        android:textSize="19sp"/>
+                        android:textSize="20sp"/>
                     <TextView
                         android:id="@+id/OrderDetailsFragmentTVClientEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/email"
-                        android:textSize="19sp"/>
+                        android:textSize="18sp"
+                        android:textColor="@color/pure_gray"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -88,13 +89,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Описание:"
-                android:textSize="25sp"/>
+                android:textSize="20sp"
+                android:textColor="@color/pure_gray"/>
             <TextView
                 android:id="@+id/OrderDetailsFragmentTVDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/description"
-                android:textSize="19sp"/>
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Услуги:"
+                android:textSize="20sp"
+                android:textColor="@color/pure_gray"/>
+            <ListView
+                android:id="@+id/OrderDetailsFragmentLVServices"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/linear_layout_transparent_style"/>
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="65dp"/>
         </LinearLayout>
     </ScrollView>
 

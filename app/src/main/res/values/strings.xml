@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Cleaner Service</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Data strings -->
     <string name="address">Адрес</string>
     <string name="description">Описание</string>
@@ -47,6 +45,8 @@
     <string name="ex_password">Длина пароля должна быть больше 6 символов</string>
     <string name="ex_rep_password">Пароль не совпал</string>
     <string name="ex_date_format">Неверный формат даты (дд.мм.гггг)</string>
+    <string name="ex_no_active_order">Нет активных заявок</string>
+    <string name="ex_no_completed_order">Нет завершенных заявок</string>
     <!-- Message strings -->
     <string name="msg_success">Успешно</string>
     <string name="msg_fail">Ошибка</string>
