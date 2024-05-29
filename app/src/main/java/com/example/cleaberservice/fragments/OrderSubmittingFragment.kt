@@ -22,6 +22,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.example.cleaberservice.R
 import com.example.cleaberservice.models.DB
+import com.example.cleaberservice.models.ImageDialog
 import com.example.cleaberservice.models.Order
 import com.example.cleaberservice.models.SharedViewModel
 import java.util.Locale
@@ -31,7 +32,6 @@ class OrderSubmittingFragment : Fragment() {
     private lateinit var imageContainer: LinearLayout
     private lateinit var addPhoto: LinearLayout
     private val bitmaps = mutableListOf<Bitmap>()
-    private val currentBitmaps = mutableListOf<Bitmap>()
     private var photoUri: Uri? = null
     private val CAMERA_CAPTURE_REQUEST = 1
     override fun onCreateView(
@@ -44,8 +44,14 @@ class OrderSubmittingFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        bitmaps.forEach {
-            addImageToContainer(it)
+        refreshPhotos()
+    }
+
+    private fun refreshPhotos() {
+        imageContainer.removeAllViews()
+        imageContainer.addView(addPhoto)
+        bitmaps.forEach { bitmap ->
+            addImageToContainer(bitmap)
         }
     }
 
@@ -65,7 +71,6 @@ class OrderSubmittingFragment : Fragment() {
             uri?.let {
                 val bitmap = BitmapFactory.decodeFile(ImageUtils.getCurrentPhotoPath())
                 bitmaps.add(bitmap)
-//                addImageToContainer(bitmap)
             }
         }
     }
@@ -79,18 +84,22 @@ class OrderSubmittingFragment : Fragment() {
     }
 
     private fun addImageToContainer(bitmap: Bitmap) {
-        if(!currentBitmaps.contains(bitmap)) {
-            val imageView = ImageView(requireContext()).apply {
-                layoutParams = LinearLayout.LayoutParams(140.dpToPx(), 140.dpToPx()).apply {
-                    marginEnd = 8.dpToPx()
-                }
-                setImageBitmap(bitmap)
-                scaleType = ImageView.ScaleType.CENTER_CROP
-                background = resources.getDrawable(R.drawable.image_container_background, null)
+        val imageView = ImageView(requireContext()).apply {
+            layoutParams = LinearLayout.LayoutParams(140.dpToPx(), 140.dpToPx()).apply {
+                marginEnd = 8.dpToPx()
             }
-            imageContainer.addView(imageView, imageContainer.childCount - 1)
-            currentBitmaps.add(bitmap)
+            setImageBitmap(bitmap)
+            scaleType = ImageView.ScaleType.CENTER_CROP
+            background = resources.getDrawable(R.drawable.image_container_background, null)
+
+            // Добавляем OnClickListener к ImageView
+            setOnClickListener {
+                val dialog = ImageDialog(bitmaps, bitmaps.indexOf(bitmap))
+                dialog.regDelegate { refreshPhotos() }
+                dialog.show(childFragmentManager, "ImageDialog")
+            }
         }
+        imageContainer.addView(imageView, imageContainer.childCount - 1)
     }
 
     // Функция расширения для преобразования dp в пиксели
@@ -152,7 +161,6 @@ class OrderSubmittingFragment : Fragment() {
             val fragment = ServicesListFragment().apply {
                 arguments = bundle
             }
-            currentBitmaps.clear()
             navController.navigate(R.id.action_orderSubmittingFragment_to_servicesListFragment, bundle)
         }
 
@@ -186,7 +194,7 @@ class OrderSubmittingFragment : Fragment() {
                 order.services[it] = true
             }
             DB.addOrder(order)
-            if(currentBitmaps.isNotEmpty())
+            if(bitmaps.isNotEmpty())
                 DB.addPhotosToOrder(order, bitmaps)
             viewModel.selectedItems.value?.clear()
             Toast.makeText(view.context, R.string.msg_success, Toast.LENGTH_SHORT).show()

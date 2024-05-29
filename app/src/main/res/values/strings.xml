@@ -23,6 +23,7 @@
     <string name="add">Добавить</string>
     <string name="add_photo">Добавить фото</string>
     <string name="remove">Убрать</string>
+    <string name="delete">Удалить</string>
     <string name="done">Готово</string>
     <string name="client">Заказчик:</string>
     <string name="cleaner">Клинер:</string>

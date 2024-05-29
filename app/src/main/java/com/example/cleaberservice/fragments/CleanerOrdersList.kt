@@ -65,7 +65,7 @@ class CleanerOrdersList : Fragment() {
         lvOrders.adapter = orderAdapter
 
         fab.setOnClickListener { _ ->
-            val dialogView = LayoutInflater.from(view.context).inflate(R.layout.filter_dialog, null)
+            val dialogView = LayoutInflater.from(view.context).inflate(R.layout.dialog_filter, null)
             val dateBefore = dialogView.findViewById<EditText>(R.id.filterDialogDateBefore)
             val dateAfter = dialogView.findViewById<EditText>(R.id.filterDialogDateAfter)
             val servicesSpinner = dialogView.findViewById<Spinner>(R.id.filterDialogServiceSpinner)
