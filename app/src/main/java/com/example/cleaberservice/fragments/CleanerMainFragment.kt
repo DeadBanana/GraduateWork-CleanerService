@@ -53,7 +53,7 @@ class CleanerMainFragment : Fragment() {
             if(DB.orders[it]?.status == false)
                 activeOrdersList[it] = DB.orders[it]!!
         }
-        adapter = OrderAdapter(requireContext(), activeOrdersList, navController)
+        adapter = OrderAdapter(requireContext(), activeOrdersList, navController, true)
         orders.adapter = adapter
         if(activeOrdersList.isNotEmpty()) {
             constraint.visibility = View.GONE

@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_orderDetailsFragment_to_cleanerOrdersList"
             app:destination="@id/cleanerOrdersList" />
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_orderReportFragment"
+            app:destination="@id/orderReportFragment" />
     </fragment>
     <fragment
         android:id="@+id/historyListFragment2"
@@ -52,5 +55,14 @@
         <action
             android:id="@+id/action_cleanerOrdersList_to_cleanerMainFragment"
             app:destination="@id/cleanerMainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderReportFragment"
+        android:name="com.example.cleaberservice.fragments.OrderReportFragment"
+        android:label="@string/title_report"
+        tools:layout="@layout/fragment_order_report" >
+        <action
+            android:id="@+id/action_orderReportFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
     </fragment>
 </navigation>

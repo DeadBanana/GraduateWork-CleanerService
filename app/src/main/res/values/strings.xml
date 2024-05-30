@@ -3,6 +3,7 @@
     <!-- Data strings -->
     <string name="address">Адрес</string>
     <string name="description">Описание</string>
+    <string name="comment">Комментарий</string>
     <string name="about">Подробнее</string>
     <string name="date">Дата:</string>
     <string name="date_before">с</string>
@@ -32,6 +33,8 @@
     <string name="navigate_to_history_fragment">Перейти к истории</string>
     <string name="navigate_to_ordering_fragment">Перейти к созданию заявки</string>
     <string name="navigate_to_orders_list">Перейти к списку заявок</string>
+    <string name="navigate_to_order_report_details">Посмотреть отчет</string>
+    <string name="navigate_to_order_reporting">Составить отчет</string>
     <!-- Title strings -->
     <string name="title_main">Главное меню</string>
     <string name="title_test">Тест</string>
@@ -40,6 +43,7 @@
     <string name="title_services">Список услуг</string>
     <string name="title_order_details">Описание</string>
     <string name="title_orders">Список заявок</string>
+    <string name="title_report">Отчет</string>
     <!-- Exception strings -->
     <string name="ex_required">Обязательное поле</string>
     <string name="ex_password">Длина пароля должна быть больше 6 символов</string>
@@ -47,8 +51,11 @@
     <string name="ex_date_format">Неверный формат даты (дд.мм.гггг)</string>
     <string name="ex_no_active_order">Нет активных заявок</string>
     <string name="ex_no_completed_order">Нет завершенных заявок</string>
+    <string name="ex_no_photo_added">Добавьте фото</string>
     <!-- Message strings -->
     <string name="msg_success">Успешно</string>
     <string name="msg_fail">Ошибка</string>
     <string name="msg_wrong_data">Неверные данные</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

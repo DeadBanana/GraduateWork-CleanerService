@@ -1,43 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.OrderSubmittingFragment"
+    tools:context=".fragments.OrderReportFragment"
     android:layout_gravity="center">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
+
             <EditText
-                android:id="@+id/OrderSubmittingFragmentEDAddress"
+                android:id="@+id/OrderReportFragmentEDComment"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/address"
-                android:textSize="21sp"
-                android:layout_margin="10dp"
-                android:inputType="textPostalAddress"/>
-            <EditText
-                android:id="@+id/OrderSubmittingFragmentEDDate"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/date_formatted"
-                android:textSize="21sp"
-                android:layout_margin="10dp"
-                android:focusable="false"
-                android:clickable="true"/>
-            <EditText
-                android:id="@+id/OrderSubmittingFragmentEDDescription"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/description"
+                android:hint="@string/comment"
                 android:textSize="21sp"
                 android:layout_margin="10dp"
                 android:inputType="textMultiLine"/>
@@ -55,7 +39,7 @@
                     android:padding="16dp">
 
                     <LinearLayout
-                        android:id="@+id/OrderSubmittingFragmentLLImageContainer"
+                        android:id="@+id/OrderReportFragmentLLImageContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -64,7 +48,7 @@
                         android:minHeight="50sp">
 
                         <LinearLayout
-                            android:id="@+id/OrderSubmittingFragmentLLAddPhoto"
+                            android:id="@+id/OrderReportFragmentLLAddPhoto"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
@@ -87,18 +71,10 @@
                         </LinearLayout>
                     </LinearLayout>
                 </HorizontalScrollView>
-
             </LinearLayout>
+
             <Button
-                android:id="@+id/OrderSubmittingFragmentBServices"
-                android:layout_width="350sp"
-                android:layout_height="wrap_content"
-                android:text="@string/services"
-                style="@style/TransparentButtonStyle"
-                android:textSize="21sp"
-                android:layout_margin="10dp"/>
-            <Button
-                android:id="@+id/OrderSubmittingFragmentBSubmit"
+                android:id="@+id/OrderReportFragmentBSubmit"
                 android:layout_width="350sp"
                 android:layout_height="wrap_content"
                 android:text="@string/done"
@@ -107,4 +83,5 @@
                 android:layout_margin="10dp"/>
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>

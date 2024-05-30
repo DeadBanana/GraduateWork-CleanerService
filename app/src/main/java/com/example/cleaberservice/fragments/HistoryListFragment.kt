@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,12 +30,17 @@ class HistoryListFragment : Fragment() {
         val navController = NavHostFragment.findNavController(this)
         DB.addAdapter { adapter.updateKeys() }
         lvHistory = view.findViewById(R.id.HistoryListFragmentLVHistory)
+        val tvMessage = view.findViewById<TextView>(R.id.HistoryListFragmentTVMessage)
         val orders: MutableMap<String, Order> = mutableMapOf()
         DB.users[DB.auth.currentUser!!.uid]!!.orders.keys.forEach {
             if(DB.orders[it]?.status == true)
                 orders[it] = DB.orders[it]!!
         }
-        adapter = OrderAdapter(view.context, orders, navController)
+        if(orders.isNotEmpty()) {
+            tvMessage.visibility = View.GONE
+            lvHistory.visibility = View.VISIBLE
+        }
+        adapter = OrderAdapter(view.context, orders, navController, true)
         lvHistory.setHasFixedSize(true)
         lvHistory.layoutManager = LinearLayoutManager(view.context)
         lvHistory.adapter = adapter

@@ -5,6 +5,7 @@ class Order(var id: String, var userId: String, var address: String, var date: L
     var services: MutableMap<String, Boolean> = mutableMapOf()
     var cleaners: MutableMap<String, Boolean> = mutableMapOf()
     var photos: MutableMap<String, MutableMap<String, String>> = mutableMapOf()
+    var comment: String = "Без комментариев"
 
     constructor() : this(ID, USERID, ADDRESS, 0, DESCRIPTION, false, true)
     constructor(address: String, date: Long, description: String) :
@@ -22,5 +23,6 @@ class Order(var id: String, var userId: String, var address: String, var date: L
         const val CLEANERS = "cleaners"
         const val VISIBILITY = "visibility"
         const val PHOTOS = "photos"
+        const val COMMENT = "comment"
     }
 }

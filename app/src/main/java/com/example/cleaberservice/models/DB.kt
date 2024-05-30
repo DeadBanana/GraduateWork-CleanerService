@@ -59,14 +59,14 @@ object DB {
         key?.let {
             val userId = auth.currentUser!!.uid
             val orderMap = mapOf(
-                "id" to key,
-                "userId" to userId,
-                "address" to order.address,
-                "date" to order.date,
-                "description" to order.description,
-                "status" to order.status,
-                "services" to order.services,
-                "visibility" to order.visibility
+                Order.ID to key,
+                Order.USERID to userId,
+                Order.ADDRESS to order.address,
+                Order.DATE to order.date,
+                Order.DESCRIPTION to order.description,
+                Order.STATUS to order.status,
+                Order.SERVICES to order.services,
+                Order.VISIBILITY to order.visibility
             )
             val childUpdates = hashMapOf<String, Any>(
                 "/${Order.ROOT}/$key" to orderMap,
@@ -148,6 +148,14 @@ object DB {
                 database.reference.updateChildren(childUpdates)
             }
         }
+    }
+
+    fun addReport(order: Order) {
+        val childUpdates = hashMapOf<String, Any>(
+            "/${Order.ROOT}/${order.id}/${Order.STATUS}" to true,
+            "/${Order.ROOT}/${order.id}/${Order.COMMENT}" to order.comment
+        )
+        database.reference.updateChildren(childUpdates)
     }
 
     fun addAdapter(adapter: () -> Unit) {

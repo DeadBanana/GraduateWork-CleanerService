@@ -141,8 +141,7 @@
             <ListView
                 android:id="@+id/OrderDetailsFragmentLVServices"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:background="@drawable/linear_layout_transparent_style"/>
+                android:layout_height="250dp"/>
             <androidx.legacy.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="65dp"/>

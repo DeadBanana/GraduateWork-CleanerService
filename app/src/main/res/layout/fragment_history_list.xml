@@ -18,7 +18,7 @@
         android:visibility="gone"/>
 
     <TextView
-        android:id="@+id/historyListFragmentTVMessage"
+        android:id="@+id/HistoryListFragmentTVMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

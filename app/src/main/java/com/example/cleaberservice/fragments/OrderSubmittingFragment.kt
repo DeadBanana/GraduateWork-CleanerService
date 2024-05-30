@@ -92,7 +92,6 @@ class OrderSubmittingFragment : Fragment() {
             scaleType = ImageView.ScaleType.CENTER_CROP
             background = resources.getDrawable(R.drawable.image_container_background, null)
 
-            // Добавляем OnClickListener к ImageView
             setOnClickListener {
                 val dialog = ImageDialog(bitmaps, bitmaps.indexOf(bitmap))
                 dialog.regDelegate { refreshPhotos() }
@@ -102,7 +101,6 @@ class OrderSubmittingFragment : Fragment() {
         imageContainer.addView(imageView, imageContainer.childCount - 1)
     }
 
-    // Функция расширения для преобразования dp в пиксели
     private fun Int.dpToPx(): Int {
         return (this * resources.displayMetrics.density).toInt()
     }

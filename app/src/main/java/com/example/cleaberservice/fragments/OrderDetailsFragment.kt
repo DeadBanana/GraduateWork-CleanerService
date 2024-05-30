@@ -24,6 +24,7 @@ import com.example.cleaberservice.models.ImageDialog
 import com.example.cleaberservice.models.Order
 import com.example.cleaberservice.models.User
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -39,6 +40,7 @@ class OrderDetailsFragment : Fragment() {
 
     private lateinit var images: LinearLayout
     private val bitmaps = mutableListOf<Bitmap>()
+    private val targets = mutableListOf<Target>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,7 +71,7 @@ class OrderDetailsFragment : Fragment() {
             llContainer.visibility = View.GONE
         else {
             uris.forEach { uri ->
-                Picasso.get().load(uri).into(object : com.squareup.picasso.Target {
+                val target = object : Target {
                     override fun onBitmapLoaded(p0: Bitmap?, p1: Picasso.LoadedFrom?) {
                         p0.let {
                             bitmaps.add(it!!)
@@ -85,7 +87,9 @@ class OrderDetailsFragment : Fragment() {
 
                     override fun onPrepareLoad(p0: Drawable?) {
                     }
-                })
+                }
+                targets.add(target)
+                Picasso.get().load(uri).into(target)
             }
         }
 
@@ -102,6 +106,7 @@ class OrderDetailsFragment : Fragment() {
         val servicesAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, servicesName)
         lvServices.adapter = servicesAdapter
 
+        var visibility = arguments?.getBoolean("visibility")
         val role = arguments?.getInt("role")
         if(role != null) {
             when(role) {
@@ -112,23 +117,45 @@ class OrderDetailsFragment : Fragment() {
                         tvClientName.text = DB.users[cleanerId]!!.name
                         tvClientEmail.text = DB.users[cleanerId]!!.email
                     }
-                    else
+                    else {
                         llRole.visibility = View.GONE
+                        visibility = false
+                    }
+                    bRespond.text = getString(R.string.navigate_to_order_report_details)
+                }
+                1 -> {
+                    if(!contextOrder.visibility)
+                        bRespond.text = getString(R.string.navigate_to_order_reporting)
                 }
             }
         }
-        val visibility = arguments?.getBoolean("visibility")
+
         if(visibility != null) {
             if(!visibility)
                 bRespond.visibility = View.GONE
         }
 
-
         bRespond.setOnClickListener {
-            DB.confirmOrder(contextOrder)
-            navController.popBackStack()
-            Toast.makeText(view.context, "Pressed", Toast.LENGTH_SHORT).show()
-            Log.d("MyLog","Button Pressed<OrderDetailsFragment>")
+            if(contextOrder.visibility) {
+                DB.confirmOrder(contextOrder)
+                navController.popBackStack()
+                Toast.makeText(requireContext(), "Pressed", Toast.LENGTH_SHORT).show()
+                Log.d("MyLog","Button Pressed<OrderDetailsFragment>")
+            }
+            else {
+                when(role) {
+                    0 -> {
+                        val bundle = Bundle()
+                        bundle.putString("orderId", contextOrder.id)
+                        navController.navigate(R.id.orderReportDetailsFragment, bundle)
+                    }
+                    1 -> {
+                        val bundle = Bundle()
+                        bundle.putString("orderId", contextOrder.id)
+                        navController.navigate(R.id.orderReportFragment, bundle)
+                    }
+                }
+            }
         }
     }
 
