@@ -83,6 +83,10 @@ class RegistrationActivity : AppCompatActivity() {
             return
         }
 
+        if(DB.users.any { x -> x.value.email == email }) {
+            Toast.makeText(this,R.string.msg_existing_user, Toast.LENGTH_SHORT).show()
+            return
+        }
 
         DB.auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
             OnCompleteListener { task ->

@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             {task ->
                 if (task.isSuccessful)
                 {
-                    Toast.makeText(this, "User Auth Successful", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.msg_success, Toast.LENGTH_SHORT).show()
                     Log.d("MyLog", "User(${email}, ${password}) Auth Successful<LoginActivity>")
                     pbProgress.visibility = View.GONE
                     val sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE)
@@ -88,16 +88,15 @@ class MainActivity : AppCompatActivity() {
                 }
                 else
                 {
-                    Toast.makeText(this, "Wrong email or password", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.msg_wrong_data, Toast.LENGTH_SHORT).show()
                     Log.d("MyLog", "User(${email}, ${password}) Auth Failed<LoginActivity>")
                     pbProgress.visibility = View.GONE
                     edPassword.text.clear()
                 }
-
             })
         else
         {
-            Toast.makeText(this, "Please enter Email and Password", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.msg_fail), Toast.LENGTH_SHORT).show()
             pbProgress.visibility = View.GONE
             return
         }

@@ -132,10 +132,7 @@ object DB {
 
     fun confirmOrder(order: Order) {
         val user = users[auth.currentUser?.uid]
-        if(user == null) {
-            Log.d("MyLog", "Null User<DataBase>")
-        }
-        else {
+        user?.let {
             if(user.role != 1) {
                 Log.d("MyLog","WrongUserRole<DataBase>")
             }
@@ -147,6 +144,8 @@ object DB {
                 )
                 database.reference.updateChildren(childUpdates)
             }
+        } ?: run {
+            Log.d("MyLog", "Null User<DataBase>")
         }
     }
 

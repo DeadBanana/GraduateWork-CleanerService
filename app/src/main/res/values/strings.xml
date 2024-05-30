@@ -56,6 +56,5 @@
     <string name="msg_success">Успешно</string>
     <string name="msg_fail">Ошибка</string>
     <string name="msg_wrong_data">Неверные данные</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="msg_existing_user">Пользователь с данной почтой уже существует</string>
 </resources>

@@ -32,7 +32,8 @@ class HistoryListFragment : Fragment() {
         lvHistory = view.findViewById(R.id.HistoryListFragmentLVHistory)
         val tvMessage = view.findViewById<TextView>(R.id.HistoryListFragmentTVMessage)
         val orders: MutableMap<String, Order> = mutableMapOf()
-        DB.users[DB.auth.currentUser!!.uid]!!.orders.keys.forEach {
+        val currentUser = DB.users[DB.auth.currentUser!!.uid]!!
+        currentUser.orders.keys.forEach {
             if(DB.orders[it]?.status == true)
                 orders[it] = DB.orders[it]!!
         }
@@ -40,7 +41,7 @@ class HistoryListFragment : Fragment() {
             tvMessage.visibility = View.GONE
             lvHistory.visibility = View.VISIBLE
         }
-        adapter = OrderAdapter(view.context, orders, navController, true)
+        adapter = OrderAdapter(view.context, orders, navController, currentUser.role == 0)
         lvHistory.setHasFixedSize(true)
         lvHistory.layoutManager = LinearLayoutManager(view.context)
         lvHistory.adapter = adapter
