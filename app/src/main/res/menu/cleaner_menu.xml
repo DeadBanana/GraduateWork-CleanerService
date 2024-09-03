@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cleanerMainFragment"
+        android:title="@string/title_main"/>
+    <item
+        android:id="@+id/cleanerOrdersList"
+        android:title="@string/title_orders"/>
+    <item
+        android:id="@+id/historyListFragment2"
+        android:title="@string/title_history"/>
+</menu>

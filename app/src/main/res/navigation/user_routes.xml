@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/routes"
+    app:startDestination="@id/userMainFragment">
+    <fragment
+        android:id="@+id/userMainFragment"
+        android:name="com.example.cleaberservice.fragments.UserMainFragment"
+        android:label="@string/title_main"
+        tools:layout="@layout/fragment_user_main" >
+        <action
+            android:id="@+id/action_userMainFragment_to_historyListFragment"
+            app:destination="@id/historyListFragment" />
+        <action
+            android:id="@+id/action_userMainFragment_to_orderSubmittingFragment"
+            app:destination="@id/orderSubmittingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyListFragment"
+        android:name="com.example.cleaberservice.fragments.HistoryListFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history_list" >
+        <action
+            android:id="@+id/action_historyListFragment_to_userMainFragment"
+            app:destination="@id/userMainFragment" />
+        <action
+            android:id="@+id/action_historyListFragment_to_orderDetailsFragment2"
+            app:destination="@id/orderDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderSubmittingFragment"
+        android:name="com.example.cleaberservice.fragments.OrderSubmittingFragment"
+        android:label="@string/title_ordering"
+        tools:layout="@layout/fragment_order_submiting" >
+        <action
+            android:id="@+id/action_orderSubmittingFragment_to_userMainFragment"
+            app:destination="@id/userMainFragment" />
+        <action
+            android:id="@+id/action_orderSubmittingFragment_to_servicesListFragment"
+            app:destination="@id/servicesListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/servicesListFragment"
+        android:name="com.example.cleaberservice.fragments.ServicesListFragment"
+        android:label="@string/title_services"
+        tools:layout="@layout/fragment_services_list" >
+        <action
+            android:id="@+id/action_servicesListFragment_to_orderSubmittingFragment"
+            app:destination="@id/orderSubmittingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment2"
+        android:name="com.example.cleaberservice.fragments.OrderDetailsFragment"
+        android:label="@string/title_order_details"
+        tools:layout="@layout/fragment_order_details" >
+        <action
+            android:id="@+id/action_orderDetailsFragment2_to_historyListFragment"
+            app:destination="@id/historyListFragment" />
+        <action
+            android:id="@+id/action_orderDetailsFragment2_to_orderReportDetailsFragment"
+            app:destination="@id/orderReportDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderReportDetailsFragment"
+        android:name="com.example.cleaberservice.fragments.OrderReportDetailsFragment"
+        android:label="@string/title_report"
+        tools:layout="@layout/fragment_order_report_details" >
+        <action
+            android:id="@+id/action_orderReportDetailsFragment_to_orderDetailsFragment2"
+            app:destination="@id/orderDetailsFragment2" />
+    </fragment>
+</navigation>

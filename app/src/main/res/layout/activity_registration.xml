@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.RegistrationActivity">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/RegistrationActivityEDName"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="@string/name"
+            style="@style/DefaultEditTextStyle"
+            android:inputType="text"
+            android:textSize="21sp" />
+
+        <EditText
+            android:id="@+id/RegistrationActivityEDEmail"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="@string/email"
+            style="@style/DefaultEditTextStyle"
+            android:inputType="textEmailAddress"
+            android:textSize="21sp" />
+
+        <EditText
+            android:id="@+id/RegistrationActivityEDPassword"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="@string/password"
+            style="@style/DefaultEditTextStyle"
+            android:inputType="textPassword"
+            android:textSize="21sp" />
+
+        <EditText
+            android:id="@+id/RegistrationActivityEDRePassword"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="@string/rePass"
+            style="@style/DefaultEditTextStyle"
+            android:inputType="textPassword"
+            android:textSize="21sp" />
+
+        <Button
+            android:id="@+id/RegistrationActivityBRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:onClick="BRegistrationClick"
+            android:text="@string/register"
+            style="@style/DefaultButtonStyle"
+            android:textSize="21sp" />
+
+        <Button
+            android:id="@+id/RegistrationActivityBLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:onClick="BLoginClick"
+            android:text="@string/login"
+            style="@style/DefaultButtonStyle"
+            android:textSize="21sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/RegistrationActivityRLoad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#77000000"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,60 @@
 <resources>
-    <string name="app_name">CleaberService</string>
+    <string name="app_name">Cleaner Service</string>
+    <!-- Data strings -->
+    <string name="address">Адрес</string>
+    <string name="description">Описание</string>
+    <string name="comment">Комментарий</string>
+    <string name="about">Подробнее</string>
+    <string name="date">Дата:</string>
+    <string name="date_before">с</string>
+    <string name="date_after">по</string>
+    <string name="date_formatted">Дата</string>
+    <string name="services">Услуги</string>
+    <string name="service">Услуга:</string>
+    <string name="name">Имя</string>
+    <string name="status">Статус</string>
+    <string name="email">E-mail</string>
+    <string name="password">Пароль</string>
+    <string name="rePass">Повторение пароля</string>
+    <string name="login">Войти</string>
+    <string name="logout">Выйти</string>
+    <string name="register">Регистрация</string>
+    <string name="add">Добавить</string>
+    <string name="add_photo">Добавить фото</string>
+    <string name="remove">Убрать</string>
+    <string name="delete">Удалить</string>
+    <string name="done">Готово</string>
+    <string name="client">Заказчик:</string>
+    <string name="cleaner">Клинер:</string>
+    <string name="respond">Откликнуться</string>
+    <!-- Navigation strings -->
+    <string name="navigate_to_main_fragment">Перейти на главную</string>
+    <string name="navigate_to_test_fragment">Перейти на тест</string>
+    <string name="navigate_to_history_fragment">Перейти к истории</string>
+    <string name="navigate_to_ordering_fragment">Перейти к созданию заявки</string>
+    <string name="navigate_to_orders_list">Перейти к списку заявок</string>
+    <string name="navigate_to_order_report_details">Посмотреть отчет</string>
+    <string name="navigate_to_order_reporting">Составить отчет</string>
+    <!-- Title strings -->
+    <string name="title_main">Главное меню</string>
+    <string name="title_test">Тест</string>
+    <string name="title_history">История</string>
+    <string name="title_ordering">Оформление заявки</string>
+    <string name="title_services">Список услуг</string>
+    <string name="title_order_details">Описание</string>
+    <string name="title_orders">Список заявок</string>
+    <string name="title_report">Отчет</string>
+    <!-- Exception strings -->
+    <string name="ex_required">Обязательное поле</string>
+    <string name="ex_password">Длина пароля должна быть больше 6 символов</string>
+    <string name="ex_rep_password">Пароль не совпал</string>
+    <string name="ex_date_format">Неверный формат даты (дд.мм.гггг)</string>
+    <string name="ex_no_active_order">Нет активных заявок</string>
+    <string name="ex_no_completed_order">Нет завершенных заявок</string>
+    <string name="ex_no_photo_added">Добавьте фото</string>
+    <!-- Message strings -->
+    <string name="msg_success">Успешно</string>
+    <string name="msg_fail">Ошибка</string>
+    <string name="msg_wrong_data">Неверные данные</string>
+    <string name="msg_existing_user">Пользователь с данной почтой уже существует</string>
 </resources>
